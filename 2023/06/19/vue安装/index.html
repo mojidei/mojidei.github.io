@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="这个是旧的博文重新放上来，时间只能精确到日期。。重新收录于24年4月26日  第一天我们都学到了什么？ 安装node（基于Chrome V8引擎的JavaScript运行环境） 安装vue cli（Vue.js开发的标准工具） 两种创建vue项目的方式：命令行方式和图形界面方式 vue的文件结构 安装Element（网站快速成型工具，一套为开发者、设计师和产品经理准备的基于 Vue 2.0 的桌面">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue安装">
+<meta property="og:url" content="https://mojidei.github.io/2023/06/19/vue%E5%AE%89%E8%A3%85/index.html">
+<meta property="og:site_name" content="mojideidays">
+<meta property="og:description" content="这个是旧的博文重新放上来，时间只能精确到日期。。重新收录于24年4月26日  第一天我们都学到了什么？ 安装node（基于Chrome V8引擎的JavaScript运行环境） 安装vue cli（Vue.js开发的标准工具） 两种创建vue项目的方式：命令行方式和图形界面方式 vue的文件结构 安装Element（网站快速成型工具，一套为开发者、设计师和产品经理准备的基于 Vue 2.0 的桌面">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-06-19T06:36:16.000Z">
+<meta property="article:modified_time" content="2024-04-26T06:40:58.431Z">
+<meta property="article:author" content="mojidei">
+<meta property="article:tag" content="vue">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>vue安装</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="顶部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="上一篇" href="/2023/11/12/hexo-deploy/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/2023/06/18/Syncplay%E7%AE%80%E6%98%93%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://mojidei.github.io/2023/06/19/vue%E5%AE%89%E8%A3%85/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://mojidei.github.io/2023/06/19/vue%E5%AE%89%E8%A3%85/&text=vue安装"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://mojidei.github.io/2023/06/19/vue%E5%AE%89%E8%A3%85/&title=vue安装"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://mojidei.github.io/2023/06/19/vue%E5%AE%89%E8%A3%85/&is_video=false&description=vue安装"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=vue安装&body=Check out this article: https://mojidei.github.io/2023/06/19/vue%E5%AE%89%E8%A3%85/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://mojidei.github.io/2023/06/19/vue%E5%AE%89%E8%A3%85/&title=vue安装"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://mojidei.github.io/2023/06/19/vue%E5%AE%89%E8%A3%85/&title=vue安装"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://mojidei.github.io/2023/06/19/vue%E5%AE%89%E8%A3%85/&title=vue安装"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://mojidei.github.io/2023/06/19/vue%E5%AE%89%E8%A3%85/&title=vue安装"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://mojidei.github.io/2023/06/19/vue%E5%AE%89%E8%A3%85/&name=vue安装&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://mojidei.github.io/2023/06/19/vue%E5%AE%89%E8%A3%85/&t=vue安装"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E5%A4%A9%E6%88%91%E4%BB%AC%E9%83%BD%E5%AD%A6%E5%88%B0%E4%BA%86%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">第一天我们都学到了什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85node"><span class="toc-number">2.</span> <span class="toc-text">安装node</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85vue-cli"><span class="toc-number">3.</span> <span class="toc-text">安装vue cli</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="toc-number">4.</span> <span class="toc-text">创建项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A5%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%96%B9%E5%BC%8F%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">以命令行方式创建项目：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A5%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2%E6%96%B9%E5%BC%8F%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="toc-number">6.</span> <span class="toc-text">以图形界面方式创建项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8HdmlBuiderX%E5%86%85%E7%BD%AE%E7%BB%88%E7%AB%AF"><span class="toc-number">7.</span> <span class="toc-text">使用HdmlBuiderX内置终端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#element%E5%AE%89%E8%A3%85"><span class="toc-number">8.</span> <span class="toc-text">element安装</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        vue安装
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">mojidei</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-06-19T06:36:16.000Z" class="dt-published" itemprop="datePublished">2023-06-19</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/vue/" rel="tag">vue</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>这个是旧的博文重新放上来，时间只能精确到日期。。重新收录于24年4月26日</p>
+<hr>
+<h2 id="第一天我们都学到了什么？"><a href="#第一天我们都学到了什么？" class="headerlink" title="第一天我们都学到了什么？"></a>第一天我们都学到了什么？</h2><ol>
+<li>安装node（基于Chrome V8引擎的JavaScript运行环境）</li>
+<li>安装vue cli（Vue.js开发的标准工具）</li>
+<li>两种创建vue项目的方式：命令行方式和图形界面方式</li>
+<li>vue的文件结构</li>
+<li>安装Element（网站快速成型工具，一套为开发者、设计师和产品经理准备的基于 Vue 2.0 的桌面端组件库）</li>
+</ol>
+<h2 id="安装node"><a href="#安装node" class="headerlink" title="安装node"></a>安装node</h2><p><a target="_blank" rel="noopener" href="https://nodejs.cn/download/">node下载链接</a>，下载长期支持版本安装包并安装。</p>
+<p>验证安装是否成功：win+r呼出运行，输入cmd回车呼出cmd命令行窗口，输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node -v</span><br></pre></td></tr></table></figure>
+
+<p>输出node版本号</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm -v</span><br></pre></td></tr></table></figure>
+
+<p>输出npm版本号</p>
+<h2 id="安装vue-cli"><a href="#安装vue-cli" class="headerlink" title="安装vue cli"></a>安装vue cli</h2><p>以管理员运行cmd：win+r呼出运行，输入cmd，ctrl+shift+enter呼出cmd命令行窗口，输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g @vue/cli</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h2><p>为了避免混乱，我们在D盘新建了名为vueproject的文件夹作为所有vue项目的上级文件夹。我们以日期命名项目名，并且只用数字命名。</p>
+<h2 id="以命令行方式创建项目："><a href="#以命令行方式创建项目：" class="headerlink" title="以命令行方式创建项目："></a>以命令行方式创建项目：</h2><p>用文件资源管理器打开vueproject文件夹，在地址栏输入cmd，回车，呼出工作目录为D:\vueproject的cmd命令行窗口。<br>创建项目命令：<br>vue create 0619<br>0619是项目名<br>之后：</p>
+<ol>
+<li><p>选择manuslly手动配置（上下键切换，enter确定）</p>
+</li>
+<li><p>仅仅选中babel、router、vuex、css pre-processors（空格键选中&#x2F;取消选中）</p>
+</li>
+<li><p>选2.x（这是vue版本）</p>
+</li>
+<li><p>一直回车</p>
+</li>
+<li><p>进入项目路径。命令：</p>
+<p>cd 0619</p>
+</li>
+<li><p>运行项目。命令：</p>
+<p>npm run serve</p>
+</li>
+<li><p>访问本地页面：在主流浏览器地址栏输入</p>
+<p>localhost:8080</p>
+</li>
+</ol>
+<p>回车</p>
+<p>要停止运行，可使用ctrl+c</p>
+<h2 id="以图形界面方式创建项目"><a href="#以图形界面方式创建项目" class="headerlink" title="以图形界面方式创建项目"></a>以图形界面方式创建项目</h2><p>cmd里输入命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue ui</span><br></pre></td></tr></table></figure>
+
+<p>点击上方的创建，将D:\vueproject粘贴在项目创建的地址栏，回车，点击下方的创建。<br>在选择版本的界面中，有个选项选的是scss。</p>
+<h2 id="使用HdmlBuiderX内置终端"><a href="#使用HdmlBuiderX内置终端" class="headerlink" title="使用HdmlBuiderX内置终端"></a>使用HdmlBuiderX内置终端</h2><p>在HdmlBuiderX里面的文件管理器里项目文件夹上右键 使用命令行打开所在目录</p>
+<h2 id="element安装"><a href="#element安装" class="headerlink" title="element安装"></a>element安装</h2><p>工作目录为项目路径（如D:\vueproject\06191753），命令：<br>npm i element-ui -S<br>pakage.json中dependencies中有”element-ui”: “^2.15.13”就算成功<br>在src文件夹中的main.js中加上</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import ElementUI from &#x27;element-ui&#x27;;</span><br><span class="line">import &#x27;element-ui/lib/theme-chalk/index.css&#x27;;</span><br><span class="line">Vue.use(ElementUI);</span><br></pre></td></tr></table></figure>
+
+<p>在src文件夹中的App.vue中div里加上</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;el-row&gt;</span><br><span class="line">  &lt;el-button&gt;默认按钮&lt;/el-button&gt;</span><br><span class="line">  &lt;el-button type=&quot;primary&quot;&gt;主要按钮&lt;/el-button&gt;</span><br><span class="line">  &lt;el-button type=&quot;success&quot;&gt;成功按钮&lt;/el-button&gt;</span><br><span class="line">  &lt;el-button type=&quot;info&quot;&gt;信息按钮&lt;/el-button&gt;</span><br><span class="line">  &lt;el-button type=&quot;warning&quot;&gt;警告按钮&lt;/el-button&gt;</span><br><span class="line">  &lt;el-button type=&quot;danger&quot;&gt;危险按钮&lt;/el-button&gt;</span><br><span class="line">&lt;/el-row&gt;</span><br></pre></td></tr></table></figure>
+
+<p>然后运行项目。</p>
+<p>参考：<br><a target="_blank" rel="noopener" href="https://cli.vuejs.org/zh/guide/">vue cli指南</a><br><a target="_blank" rel="noopener" href="https://element.eleme.cn/#/zh-CN/component/installation">element指南</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">首页</a></li>
+        
+          <li><a href="/about/">关于</a></li>
+        
+          <li><a href="/archives/">归档</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E5%A4%A9%E6%88%91%E4%BB%AC%E9%83%BD%E5%AD%A6%E5%88%B0%E4%BA%86%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">第一天我们都学到了什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85node"><span class="toc-number">2.</span> <span class="toc-text">安装node</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85vue-cli"><span class="toc-number">3.</span> <span class="toc-text">安装vue cli</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="toc-number">4.</span> <span class="toc-text">创建项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A5%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%96%B9%E5%BC%8F%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">以命令行方式创建项目：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A5%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2%E6%96%B9%E5%BC%8F%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="toc-number">6.</span> <span class="toc-text">以图形界面方式创建项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8HdmlBuiderX%E5%86%85%E7%BD%AE%E7%BB%88%E7%AB%AF"><span class="toc-number">7.</span> <span class="toc-text">使用HdmlBuiderX内置终端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#element%E5%AE%89%E8%A3%85"><span class="toc-number">8.</span> <span class="toc-text">element安装</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://mojidei.github.io/2023/06/19/vue%E5%AE%89%E8%A3%85/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://mojidei.github.io/2023/06/19/vue%E5%AE%89%E8%A3%85/&text=vue安装"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://mojidei.github.io/2023/06/19/vue%E5%AE%89%E8%A3%85/&title=vue安装"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://mojidei.github.io/2023/06/19/vue%E5%AE%89%E8%A3%85/&is_video=false&description=vue安装"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=vue安装&body=Check out this article: https://mojidei.github.io/2023/06/19/vue%E5%AE%89%E8%A3%85/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://mojidei.github.io/2023/06/19/vue%E5%AE%89%E8%A3%85/&title=vue安装"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://mojidei.github.io/2023/06/19/vue%E5%AE%89%E8%A3%85/&title=vue安装"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://mojidei.github.io/2023/06/19/vue%E5%AE%89%E8%A3%85/&title=vue安装"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://mojidei.github.io/2023/06/19/vue%E5%AE%89%E8%A3%85/&title=vue安装"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://mojidei.github.io/2023/06/19/vue%E5%AE%89%E8%A3%85/&name=vue安装&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://mojidei.github.io/2023/06/19/vue%E5%AE%89%E8%A3%85/&t=vue安装"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2024
+    mojidei
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板！\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功！");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
