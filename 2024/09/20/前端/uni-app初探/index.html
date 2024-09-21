@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="uni-app可以用vscode和hbuilderx。先用hbuilderx看看。 文档https:&#x2F;&#x2F;uniapp.dcloud.net.cn&#x2F;quickstart.html  注意上方几个按钮，包含组件、插件之类的。 写uniapp的时候需要注意一个点就是想用功能前先看看uniapp是不是自带了。。看不懂的东西也可能是uniapp自带的。 AI话术用uniapp (vue2)(文件为.vue)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="uni-app初探">
+<meta property="og:url" content="https://mojidei.github.io/2024/09/20/%E5%89%8D%E7%AB%AF/uni-app%E5%88%9D%E6%8E%A2/index.html">
+<meta property="og:site_name" content="mojideidays">
+<meta property="og:description" content="uni-app可以用vscode和hbuilderx。先用hbuilderx看看。 文档https:&#x2F;&#x2F;uniapp.dcloud.net.cn&#x2F;quickstart.html  注意上方几个按钮，包含组件、插件之类的。 写uniapp的时候需要注意一个点就是想用功能前先看看uniapp是不是自带了。。看不懂的东西也可能是uniapp自带的。 AI话术用uniapp (vue2)(文件为.vue)">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-09-20T00:38:48.000Z">
+<meta property="article:modified_time" content="2024-09-20T09:31:04.847Z">
+<meta property="article:author" content="mojidei">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>uni-app初探</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="顶部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="上一篇" href="/2024/09/20/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/win%E7%B3%BB%E7%BB%9F%E7%9A%84tree%E5%91%BD%E4%BB%A4/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/2024/09/20/python/flask%E4%B8%8Ejwt/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://mojidei.github.io/2024/09/20/%E5%89%8D%E7%AB%AF/uni-app%E5%88%9D%E6%8E%A2/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://mojidei.github.io/2024/09/20/%E5%89%8D%E7%AB%AF/uni-app%E5%88%9D%E6%8E%A2/&text=uni-app初探"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://mojidei.github.io/2024/09/20/%E5%89%8D%E7%AB%AF/uni-app%E5%88%9D%E6%8E%A2/&title=uni-app初探"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://mojidei.github.io/2024/09/20/%E5%89%8D%E7%AB%AF/uni-app%E5%88%9D%E6%8E%A2/&is_video=false&description=uni-app初探"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=uni-app初探&body=Check out this article: https://mojidei.github.io/2024/09/20/%E5%89%8D%E7%AB%AF/uni-app%E5%88%9D%E6%8E%A2/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://mojidei.github.io/2024/09/20/%E5%89%8D%E7%AB%AF/uni-app%E5%88%9D%E6%8E%A2/&title=uni-app初探"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://mojidei.github.io/2024/09/20/%E5%89%8D%E7%AB%AF/uni-app%E5%88%9D%E6%8E%A2/&title=uni-app初探"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://mojidei.github.io/2024/09/20/%E5%89%8D%E7%AB%AF/uni-app%E5%88%9D%E6%8E%A2/&title=uni-app初探"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://mojidei.github.io/2024/09/20/%E5%89%8D%E7%AB%AF/uni-app%E5%88%9D%E6%8E%A2/&title=uni-app初探"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://mojidei.github.io/2024/09/20/%E5%89%8D%E7%AB%AF/uni-app%E5%88%9D%E6%8E%A2/&name=uni-app初探&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://mojidei.github.io/2024/09/20/%E5%89%8D%E7%AB%AF/uni-app%E5%88%9D%E6%8E%A2/&t=uni-app初探"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#AI%E8%AF%9D%E6%9C%AF"><span class="toc-number">1.</span> <span class="toc-text">AI话术</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E6%96%B9%E5%BC%8F"><span class="toc-number">2.</span> <span class="toc-text">运行方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Chrome"><span class="toc-number">2.1.</span> <span class="toc-text">Chrome</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E5%8D%93%E5%AE%9E%E6%9C%BA"><span class="toc-number">2.2.</span> <span class="toc-text">安卓实机</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#uni-ui"><span class="toc-number">3.</span> <span class="toc-text">uni-ui</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">3.1.</span> <span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8F%92%E4%BB%B6%E5%AE%89%E8%A3%85"><span class="toc-number">3.1.1.</span> <span class="toc-text">插件安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="toc-number">3.1.2.</span> <span class="toc-text">新建项目</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%95%E9%83%A8%E5%AF%BC%E8%88%AA%E6%A0%8FtabBar"><span class="toc-number">4.</span> <span class="toc-text">底部导航栏tabBar</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E9%A1%B6%E9%83%A8%E6%A0%8F%E5%90%8D%E7%A7%B0"><span class="toc-number">5.</span> <span class="toc-text">修改顶部栏名称</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%E5%88%9D%E6%8E%A2"><span class="toc-number">6.</span> <span class="toc-text">跨域问题初探</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%91%E8%B5%B7%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82"><span class="toc-number">7.</span> <span class="toc-text">发起网络请求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BD%AE%E6%92%AD%E5%9B%BE"><span class="toc-number">8.</span> <span class="toc-text">轮播图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E5%85%A5%E7%BB%84%E4%BB%B6"><span class="toc-number">9.</span> <span class="toc-text">引入组件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%A0%E9%80%92%E5%8F%82%E6%95%B0"><span class="toc-number">9.1.</span> <span class="toc-text">传递参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E6%96%B0%E9%A1%B5%E9%9D%A2%E6%8E%A5%E6%94%B6%E5%8F%82%E6%95%B0"><span class="toc-number">9.2.</span> <span class="toc-text">在新页面接收参数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6%E5%BC%95%E5%85%A5%E6%97%B6%E7%9A%84%E5%91%BD%E5%90%8D%E9%97%AE%E9%A2%98"><span class="toc-number">10.</span> <span class="toc-text">组件引入时的命名问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E7%BB%84%E5%8D%A1%E7%89%87%E4%B8%AD%EF%BC%8C%E9%87%8C%E9%9D%A2%E7%9A%84%E7%BD%91%E6%A0%BC%E4%B8%8B%E9%9D%A2%E7%9A%84%E6%96%87%E5%AD%97%E6%8F%8F%E8%BF%B0%E8%A2%AB%E6%8C%A1"><span class="toc-number">11.</span> <span class="toc-text">分组卡片中，里面的网格下面的文字描述被挡</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%85%A8%E5%B1%80%E8%AF%B7%E6%B1%82%E8%B7%AF%E5%BE%84"><span class="toc-number">12.</span> <span class="toc-text">配置全局请求路径</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        uni-app初探
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">mojidei</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2024-09-20T00:38:48.000Z" class="dt-published" itemprop="datePublished">2024-09-20</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>uni-app可以用vscode和hbuilderx。先用hbuilderx看看。</p>
+<p>文档<a target="_blank" rel="noopener" href="https://uniapp.dcloud.net.cn/quickstart.html">https://uniapp.dcloud.net.cn/quickstart.html</a>  注意上方几个按钮，包含组件、插件之类的。</p>
+<p>写uniapp的时候需要注意一个点就是想用功能前先看看uniapp是不是自带了。。看不懂的东西也可能是uniapp自带的。</p>
+<h2 id="AI话术"><a href="#AI话术" class="headerlink" title="AI话术"></a>AI话术</h2><p>用uniapp (vue2)(文件为.vue)</p>
+<p>（如果uniapp有这种东西的话）</p>
+<h2 id="运行方式"><a href="#运行方式" class="headerlink" title="运行方式"></a>运行方式</h2><h3 id="Chrome"><a href="#Chrome" class="headerlink" title="Chrome"></a>Chrome</h3><p>上方“运行”→运行到浏览器→Chrome</p>
+<p>然后浏览器里f12→切换到手机视图→修改尺寸为iPhone6&#x2F;7&#x2F;8→缩放修改为100%</p>
+<h3 id="安卓实机"><a href="#安卓实机" class="headerlink" title="安卓实机"></a>安卓实机</h3><p>手机要打开开发者模式，还要调到传输文件模式</p>
+<p>有个实机插件安装一下</p>
+<p>然后运行的时候选安卓基座</p>
+<h2 id="uni-ui"><a href="#uni-ui" class="headerlink" title="uni-ui"></a>uni-ui</h2><p><a target="_blank" rel="noopener" href="https://uniapp.dcloud.net.cn/component/uniui/uni-ui.html">https://uniapp.dcloud.net.cn/component/uniui/uni-ui.html</a></p>
+<p>用的时候要参考例子</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><h4 id="插件安装"><a href="#插件安装" class="headerlink" title="插件安装"></a>插件安装</h4><p>需要登录，之后不用费心</p>
+<h4 id="新建项目"><a href="#新建项目" class="headerlink" title="新建项目"></a>新建项目</h4><p>新建带有uni-ui的项目</p>
+<h2 id="底部导航栏tabBar"><a href="#底部导航栏tabBar" class="headerlink" title="底部导航栏tabBar"></a>底部导航栏tabBar</h2><p>文件结构</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">pages</span><br><span class="line">│  lab.vue</span><br><span class="line">│</span><br><span class="line">├─classification</span><br><span class="line">│      classification.vue</span><br><span class="line">│</span><br><span class="line">├─index</span><br><span class="line">│      index.vue</span><br><span class="line">│</span><br><span class="line">├─my</span><br><span class="line">│      my.vue</span><br><span class="line">│</span><br><span class="line">└─shopping-cart</span><br><span class="line">        shopping-cart.vue</span><br></pre></td></tr></table></figure>
+
+<p>pages.json</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	&quot;pages&quot;: [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages</span><br><span class="line">		&#123;</span><br><span class="line">			&quot;path&quot;: &quot;pages/index/index&quot;,</span><br><span class="line">			&quot;style&quot;: &#123;</span><br><span class="line">				&quot;navigationBarTitleText&quot;: &quot;uni-app&quot;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;,</span><br><span class="line">		&#123;</span><br><span class="line">			&quot;path&quot;: &quot;pages/classification/classification&quot;</span><br><span class="line">		&#125;,</span><br><span class="line">		&#123;</span><br><span class="line">			&quot;path&quot;: &quot;pages/my/my&quot;</span><br><span class="line">		&#125;,</span><br><span class="line">		&#123;</span><br><span class="line">			&quot;path&quot;: &quot;pages/shopping-cart/shopping-cart&quot;</span><br><span class="line">		&#125;,</span><br><span class="line">		&#123;</span><br><span class="line">			&quot;path&quot;: &quot;pages/lab&quot;</span><br><span class="line">		&#125;</span><br><span class="line">	],</span><br><span class="line">	&quot;globalStyle&quot;: &#123;</span><br><span class="line">		&quot;navigationBarTextStyle&quot;: &quot;black&quot;,</span><br><span class="line">		&quot;navigationBarTitleText&quot;: &quot;uni-app&quot;,</span><br><span class="line">		&quot;navigationBarBackgroundColor&quot;: &quot;#F8F8F8&quot;,</span><br><span class="line">		&quot;backgroundColor&quot;: &quot;#F8F8F8&quot;</span><br><span class="line">	&#125;,</span><br><span class="line">	&quot;uniIdRouter&quot;: &#123;&#125;,</span><br><span class="line">	&quot;tabBar&quot;: &#123;</span><br><span class="line">		&quot;backgroundColor&quot;: &quot;#C00000&quot;,</span><br><span class="line">		&quot;list&quot;: [</span><br><span class="line">			&#123;</span><br><span class="line">				&quot;pagePath&quot;: &quot;pages/index/index&quot;,</span><br><span class="line">				&quot;text&quot;: &quot;首页&quot;</span><br><span class="line">			&#125;,</span><br><span class="line">			&#123;</span><br><span class="line">				&quot;pagePath&quot;: &quot;pages/classification/classification&quot;,</span><br><span class="line">				&quot;text&quot;: &quot;分类&quot;</span><br><span class="line">			&#125;</span><br><span class="line">		]</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="修改顶部栏名称"><a href="#修改顶部栏名称" class="headerlink" title="修改顶部栏名称"></a>修改顶部栏名称</h2><p>pages.json</p>
+<p>pages→style→navigationBarTitleText</p>
+<p>另一个则是globalStyle→navigationBarTitleText</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;navigationBarTitleText&quot;: &quot;卖狗&quot;</span><br></pre></td></tr></table></figure>
+
+<p>可能需要重新运行</p>
+<h2 id="跨域问题初探"><a href="#跨域问题初探" class="headerlink" title="跨域问题初探"></a>跨域问题初探</h2><p>现在我们用一个简单的html（在vscode里用liveserve）来认识一下跨域</p>
+<p>index.html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;zh-CN&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 引入axios --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span> <span class="attr">id</span>=<span class="string">&quot;theImg&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// 使用axio发送post请求</span></span></span><br><span class="line"><span class="language-javascript">        axios.<span class="title function_">post</span>(<span class="string">&#x27;http://localhost:5000/givemeimg&#x27;</span>, &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="attr">filename</span>: <span class="string">&#x27;1.png&#x27;</span></span></span><br><span class="line"><span class="language-javascript">        &#125;).<span class="title function_">then</span>(<span class="keyword">function</span> (<span class="params">response</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="variable language_">console</span>.<span class="title function_">log</span>(response.<span class="property">data</span>.<span class="property">imgUrl</span>);</span></span><br><span class="line"><span class="language-javascript">            <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;theImg&#x27;</span>).<span class="property">src</span> = response.<span class="property">data</span>.<span class="property">imgUrl</span>;</span></span><br><span class="line"><span class="language-javascript">        &#125;).<span class="title function_">catch</span>(<span class="keyword">function</span> (<span class="params">error</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="variable language_">console</span>.<span class="title function_">log</span>(error);</span></span><br><span class="line"><span class="language-javascript">        &#125;);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>app.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, jsonify, request, abort, send_from_directory</span><br><span class="line"><span class="keyword">from</span> flask_sqlalchemy <span class="keyword">import</span> SQLAlchemy</span><br><span class="line"><span class="keyword">from</span> flask_jwt_extended <span class="keyword">import</span> JWTManager, create_access_token, jwt_required, get_jwt_identity</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置 MySQL 数据库连接</span></span><br><span class="line">app.config[<span class="string">&#x27;SQLALCHEMY_DATABASE_URI&#x27;</span>] = <span class="string">&#x27;sqlite:///an_dog.db&#x27;</span></span><br><span class="line">app.config[<span class="string">&#x27;SQLALCHEMY_TRACK_MODIFICATIONS&#x27;</span>] = <span class="literal">False</span></span><br><span class="line">db = SQLAlchemy(app)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置 JWT 扩展</span></span><br><span class="line">app.config[<span class="string">&#x27;JWT_SECRET_KEY&#x27;</span>] = <span class="string">&#x27;jwt-secret-string&#x27;</span>  <span class="comment"># 密钥</span></span><br><span class="line">jwt = JWTManager(app)  <span class="comment"># 初始化 JWT 扩展</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">User</span>(db.Model):</span><br><span class="line">    __tablename__ = <span class="string">&#x27;users&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">id</span> = db.Column(db.Integer, primary_key=<span class="literal">True</span>, autoincrement=<span class="literal">True</span>)</span><br><span class="line">    username = db.Column(db.String(<span class="number">255</span>), nullable=<span class="literal">False</span>)</span><br><span class="line">    password = db.Column(db.String(<span class="number">255</span>), nullable=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">index</span>():</span><br><span class="line">    all_users = User.query.<span class="built_in">all</span>()</span><br><span class="line">    <span class="built_in">print</span>(all_users)</span><br><span class="line">    <span class="keyword">for</span> user <span class="keyword">in</span> all_users:</span><br><span class="line">        <span class="built_in">print</span>(user.username)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;Hello, World!&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 模拟用户数据</span></span><br><span class="line">users = &#123;</span><br><span class="line">    <span class="string">&quot;user1&quot;</span>: <span class="string">&quot;password1&quot;</span>,</span><br><span class="line">    <span class="string">&quot;user2&quot;</span>: <span class="string">&quot;password2&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 登录路由，获取 JWT</span></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/login&#x27;</span>, methods=[<span class="string">&#x27;POST&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">login</span>():</span><br><span class="line">    username = request.json.get(<span class="string">&#x27;username&#x27;</span>)</span><br><span class="line">    password = request.json.get(<span class="string">&#x27;password&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> username <span class="keyword">in</span> users <span class="keyword">and</span> users[username] == password:</span><br><span class="line">        access_token = create_access_token(identity=username)</span><br><span class="line">        <span class="keyword">return</span> jsonify(access_token=access_token), <span class="number">200</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> jsonify(&#123;<span class="string">&quot;msg&quot;</span>: <span class="string">&quot;Bad username or password&quot;</span>&#125;), <span class="number">401</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 受保护的路由</span></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/protected&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>]</span>)</span></span><br><span class="line"><span class="meta">@jwt_required()</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">protected</span>():</span><br><span class="line">    current_user = get_jwt_identity()</span><br><span class="line">    <span class="keyword">return</span> jsonify(logged_in_as=current_user), <span class="number">200</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 图片服务</span></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/images/&lt;path:filename&gt;&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">send_image</span>(<span class="params">filename</span>):</span><br><span class="line">    <span class="comment"># 定义存放图片的文件夹</span></span><br><span class="line">    images_directory = <span class="string">&#x27;./images&#x27;</span>  <span class="comment"># 替换为你的图片文件夹路径</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">return</span> send_from_directory(images_directory, filename)</span><br><span class="line">    <span class="keyword">except</span> FileNotFoundError:</span><br><span class="line">        abort(<span class="number">404</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 一个Post路由，用于测试跨域问题</span></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/givemeimg&#x27;</span>, methods=[<span class="string">&#x27;POST&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">givemeimg</span>():</span><br><span class="line">    <span class="keyword">return</span> jsonify(&#123;<span class="string">&#x27;msg&#x27;</span>: <span class="string">&#x27;ok&#x27;</span>, <span class="string">&#x27;imgUrl&#x27;</span>: <span class="string">&#x27;http://localhost:5000/images/1.png&#x27;</span>&#125;), <span class="number">200</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    app.run()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>然后我们看看浏览器控制台</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">index.html:1 Access to XMLHttpRequest at &#x27;http://localhost:5000/givemeimg&#x27; from origin &#x27;http://127.0.0.1:5500&#x27; has been blocked by CORS policy: Response to preflight request doesn&#x27;t pass access control check: No &#x27;Access-Control-Allow-Origin&#x27; header is present on the requested resource.</span><br><span class="line">index.html:20 Error: Network Error</span><br><span class="line">    at e.exports (isAxiosError.js:10:1)</span><br><span class="line">    at l.onerror (isAxiosError.js:10:1)</span><br><span class="line">isAxiosError.js:10 </span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">       POST http://localhost:5000/givemeimg net::ERR_FAILED</span><br></pre></td></tr></table></figure>
+
+<p>这里，控制台告诉我们，大概是出现了跨域问题，需要搞个CORS之类来解决它，解决它主要是是后端的事情</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask_cors <span class="keyword">import</span> CORS</span><br><span class="line"></span><br><span class="line">CORS(app)  <span class="comment"># 允许所有域名的跨域请求</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="发起网络请求"><a href="#发起网络请求" class="headerlink" title="发起网络请求"></a>发起网络请求</h2><p>文档<a target="_blank" rel="noopener" href="https://uniapp.dcloud.net.cn/api/request/request.html">https://uniapp.dcloud.net.cn/api/request/request.html</a></p>
+<p>lab.vue</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;view&gt;</span><br><span class="line">    &lt;image v-if=&quot;imageUrl&quot; :src=&quot;imageUrl&quot; mode=&quot;aspectFit&quot;&gt;&lt;/image&gt;</span><br><span class="line">    &lt;button @click=&quot;fetchImageUrl&quot;&gt;加载图片&lt;/button&gt;</span><br><span class="line">  &lt;/view&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      imageUrl: &#x27;&#x27;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    fetchImageUrl() &#123;</span><br><span class="line">      uni.request(&#123;</span><br><span class="line">        url: &#x27;http://127.0.0.1:5000/givemeimg&#x27;, // 替换为实际的API路径</span><br><span class="line">        method: &#x27;POST&#x27;,</span><br><span class="line">        success: (res) =&gt; &#123;</span><br><span class="line">          if (res.statusCode === 200) &#123;</span><br><span class="line">            this.imageUrl = res.data.imgUrl; // 假设返回的JSON中包含uri字段</span><br><span class="line">          &#125; else &#123;</span><br><span class="line">            uni.showToast(&#123;</span><br><span class="line">              title: &#x27;请求失败&#x27;,</span><br><span class="line">              icon: &#x27;none&#x27;</span><br><span class="line">            &#125;);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        fail: (err) =&gt; &#123;</span><br><span class="line">          console.error(err);</span><br><span class="line">          uni.showToast(&#123;</span><br><span class="line">            title: &#x27;请求错误&#x27;,</span><br><span class="line">            icon: &#x27;none&#x27;</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;style&gt;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="轮播图"><a href="#轮播图" class="headerlink" title="轮播图"></a>轮播图</h2><p>MyCarouselImage.vue</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;view class=&quot;container&quot;&gt;</span><br><span class="line">    &lt;swiper indicator-dots=&quot;true&quot; autoplay=&quot;true&quot; interval=&quot;3000&quot; circular=&quot;true&quot;&gt;</span><br><span class="line">      &lt;swiper-item v-for=&quot;(item, index) in images&quot; :key=&quot;index&quot;&gt;</span><br><span class="line">        &lt;image :src=&quot;item&quot; mode=&quot;aspectFill&quot; class=&quot;swiper-image&quot;&gt;&lt;/image&gt;</span><br><span class="line">      &lt;/swiper-item&gt;</span><br><span class="line">    &lt;/swiper&gt;</span><br><span class="line">  &lt;/view&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      images: []</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  mounted() &#123;</span><br><span class="line">    this.loadImages();</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    loadImages() &#123;</span><br><span class="line">      // 这里可以进行数据请求，获取轮播图的图片</span><br><span class="line">      // 从网络请求获取，可以使用 uni.request()</span><br><span class="line">      uni.request(&#123;</span><br><span class="line">        url: &#x27;http://127.0.0.1:5000/index/get-carousel-image&#x27;, // 接口地址</span><br><span class="line">        method: &#x27;GET&#x27;,</span><br><span class="line">        success: (res) =&gt; &#123;</span><br><span class="line">          this.images = res.data.carouselImageUriList; // 接口返回的数据是图片数组</span><br><span class="line">        &#125;,</span><br><span class="line">        fail: (err) =&gt; &#123;</span><br><span class="line">          console.error(err);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line">.container &#123;</span><br><span class="line">  width: 100%;</span><br><span class="line">  height: 300rpx; /* 根据需求调整高度 */</span><br><span class="line">&#125;</span><br><span class="line">.swiper-image &#123;</span><br><span class="line">  width: 100%;</span><br><span class="line">  height: 100%;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>app.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取轮播图的图片</span></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/index/get-carousel-image&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_carousel_image</span>():</span><br><span class="line">    <span class="comment"># 接口返回的数据是图片数组</span></span><br><span class="line">    <span class="comment"># 初始化一个含有三张图片uri的数组</span></span><br><span class="line">    carousel_image_uri_list = [<span class="string">&#x27;http://localhost:5000/images/1.png&#x27;</span>, <span class="string">&#x27;http://localhost:5000/images/1.png&#x27;</span>, <span class="string">&#x27;http://localhost:5000/images/1.png&#x27;</span>]</span><br><span class="line">    <span class="keyword">return</span> jsonify(&#123;<span class="string">&#x27;carouselImageUriList&#x27;</span>: carousel_image_uri_list&#125;), <span class="number">200</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="引入组件"><a href="#引入组件" class="headerlink" title="引入组件"></a>引入组件</h2><p>index.vue</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;view class=&quot;content&quot;&gt;</span><br><span class="line">		&lt;MyCarouselImage&gt;&lt;/MyCarouselImage&gt;</span><br><span class="line">		&lt;view&gt;</span><br><span class="line">			&lt;button @click=&quot;goto_somewhere&quot;&gt;lab&lt;/button&gt;</span><br><span class="line">		&lt;/view&gt;</span><br><span class="line">		</span><br><span class="line">	&lt;/view&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">	import MyCarouselImage from &#x27;@/pages/index/MyCarouselImage.vue&#x27;;</span><br><span class="line">	export default &#123;</span><br><span class="line">		components: &#123;</span><br><span class="line">		    MyCarouselImage, // 注册组件</span><br><span class="line">		&#125;,</span><br><span class="line">		data() &#123;</span><br><span class="line">			return &#123;</span><br><span class="line">				title: &#x27;Hello&#x27;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;,</span><br><span class="line">		methods: &#123;</span><br><span class="line">			goto_somewhere() &#123;</span><br><span class="line">				uni.navigateTo(&#123;</span><br><span class="line">					url: &#x27;/pages/lab&#x27; // 路径根据你的页面结构调整</span><br><span class="line">				&#125;);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line">	.content &#123;</span><br><span class="line">		display: flex;</span><br><span class="line">		flex-direction: column;</span><br><span class="line">		align-items: center;</span><br><span class="line">		justify-content: center;</span><br><span class="line">	&#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="传递参数"><a href="#传递参数" class="headerlink" title="传递参数"></a>传递参数</h3><p>lab.vue</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;view&gt;</span><br><span class="line">    &lt;text&gt;这是首页&lt;/text&gt;</span><br><span class="line">    &lt;my-component my-prop=&quot;Hello, World!&quot;&gt;&lt;/my-component&gt; &lt;!-- 传递参数 --&gt;</span><br><span class="line">  &lt;/view&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import MyComponent from &#x27;@/pages/lab2.vue&#x27;; // 引入组件路径</span><br><span class="line"></span><br><span class="line">export default &#123;</span><br><span class="line">  components: &#123;</span><br><span class="line">    MyComponent  // 注册组件</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line">/* 页面的样式 */</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+
+<p>lab2.vue</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;view&gt;</span><br><span class="line">    &lt;text&gt;这是我的组件，接收到的参数是：&#123;&#123; myProp &#125;&#125;&lt;/text&gt;</span><br><span class="line">  &lt;/view&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  props: &#123;</span><br><span class="line">    myProp: &#123;</span><br><span class="line">      type: String,  // 定义传入参数的类型</span><br><span class="line">      required: true // 是否必传</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;&#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line">/* 组件的样式 */</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+
+<p>注意，属性名需要用短横线连接，但是在组件内接收时是驼峰命名(<code>myProp</code>)</p>
+<h3 id="在新页面接收参数"><a href="#在新页面接收参数" class="headerlink" title="在新页面接收参数"></a>在新页面接收参数</h3><p>父页面</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">uni.navigateTo(&#123;</span><br><span class="line">	url: `/pages/lab5?id=`+ this.items[index].id</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>子页面</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;!-- 商品详情页 --&gt;</span><br><span class="line">	&lt;view&gt;</span><br><span class="line">		&lt;p&gt;&#123;&#123;id&#125;&#125;&lt;/p&gt;</span><br><span class="line">	&lt;/view&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">	export default &#123;</span><br><span class="line">		onLoad(options) &#123;</span><br><span class="line">			// 从 options 中获取参数</span><br><span class="line">			const id = options.id;</span><br><span class="line">			console.log(&#x27;接收到的id为:&#x27;, id);</span><br><span class="line"></span><br><span class="line">			// 你可以根据需要进行后续处理，例如设置到 data 中</span><br><span class="line">			this.id = id;</span><br><span class="line">		&#125;,</span><br><span class="line">		data() &#123;</span><br><span class="line">			return &#123;</span><br><span class="line">				id: null // 用于存储接收到的参数</span><br><span class="line">			&#125;;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="组件引入时的命名问题"><a href="#组件引入时的命名问题" class="headerlink" title="组件引入时的命名问题"></a>组件引入时的命名问题</h2><p>遵循首字母为大写的驼峰，里面不要有数字</p>
+<h2 id="分组卡片中，里面的网格下面的文字描述被挡"><a href="#分组卡片中，里面的网格下面的文字描述被挡" class="headerlink" title="分组卡片中，里面的网格下面的文字描述被挡"></a>分组卡片中，里面的网格下面的文字描述被挡</h2><p>设置文字的行高并调小一些</p>
+<h2 id="配置全局请求路径"><a href="#配置全局请求路径" class="headerlink" title="配置全局请求路径"></a>配置全局请求路径</h2><p>main.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">App</span> <span class="keyword">from</span> <span class="string">&#x27;./App&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// #ifndef VUE3</span></span><br><span class="line"><span class="comment">//vue2</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Vue</span> <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;./uni.promisify.adaptor&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 请求后端URI配置</span></span><br><span class="line"><span class="title class_">Vue</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">$apiBaseUrl</span> = <span class="string">&#x27;http://127.0.0.1:5000&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="title class_">Vue</span>.<span class="property">config</span>.<span class="property">productionTip</span> = <span class="literal">false</span></span><br><span class="line"><span class="title class_">App</span>.<span class="property">mpType</span> = <span class="string">&#x27;app&#x27;</span></span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">  ...<span class="title class_">App</span></span><br><span class="line">&#125;)</span><br><span class="line">app.$mount()</span><br><span class="line"><span class="comment">// #endif</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// #ifdef VUE3</span></span><br><span class="line"><span class="keyword">import</span> &#123; createSSRApp &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">createApp</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> app = <span class="title function_">createSSRApp</span>(<span class="title class_">App</span>)</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    app</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// #endif</span></span><br></pre></td></tr></table></figure>
+
+<p>使用的时候，不用import，很方便</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">fetchImageUrl() &#123;</span><br><span class="line">  uni.request(&#123;</span><br><span class="line">    url: `$&#123;this.$apiBaseUrl&#125;/givemeimg`, // 这里</span><br><span class="line">    method: &#x27;POST&#x27;,</span><br><span class="line">    success: (res) =&gt; &#123;</span><br><span class="line">      if (res.statusCode === 200) &#123;</span><br><span class="line">        this.imageUrl = res.data.imgUrl; </span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        uni.showToast(&#123;</span><br><span class="line">          title: &#x27;请求失败&#x27;,</span><br><span class="line">          icon: &#x27;none&#x27;</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    fail: (err) =&gt; &#123;</span><br><span class="line">      console.error(err);</span><br><span class="line">      uni.showToast(&#123;</span><br><span class="line">        title: &#x27;请求错误&#x27;,</span><br><span class="line">        icon: &#x27;none&#x27;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我这么做是为了在最后安卓实机，向网络里的服务器发起请求</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">首页</a></li>
+        
+          <li><a href="/about/">关于</a></li>
+        
+          <li><a href="/archives/">归档</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#AI%E8%AF%9D%E6%9C%AF"><span class="toc-number">1.</span> <span class="toc-text">AI话术</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E6%96%B9%E5%BC%8F"><span class="toc-number">2.</span> <span class="toc-text">运行方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Chrome"><span class="toc-number">2.1.</span> <span class="toc-text">Chrome</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E5%8D%93%E5%AE%9E%E6%9C%BA"><span class="toc-number">2.2.</span> <span class="toc-text">安卓实机</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#uni-ui"><span class="toc-number">3.</span> <span class="toc-text">uni-ui</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">3.1.</span> <span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8F%92%E4%BB%B6%E5%AE%89%E8%A3%85"><span class="toc-number">3.1.1.</span> <span class="toc-text">插件安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="toc-number">3.1.2.</span> <span class="toc-text">新建项目</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%95%E9%83%A8%E5%AF%BC%E8%88%AA%E6%A0%8FtabBar"><span class="toc-number">4.</span> <span class="toc-text">底部导航栏tabBar</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E9%A1%B6%E9%83%A8%E6%A0%8F%E5%90%8D%E7%A7%B0"><span class="toc-number">5.</span> <span class="toc-text">修改顶部栏名称</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%E5%88%9D%E6%8E%A2"><span class="toc-number">6.</span> <span class="toc-text">跨域问题初探</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%91%E8%B5%B7%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82"><span class="toc-number">7.</span> <span class="toc-text">发起网络请求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BD%AE%E6%92%AD%E5%9B%BE"><span class="toc-number">8.</span> <span class="toc-text">轮播图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E5%85%A5%E7%BB%84%E4%BB%B6"><span class="toc-number">9.</span> <span class="toc-text">引入组件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%A0%E9%80%92%E5%8F%82%E6%95%B0"><span class="toc-number">9.1.</span> <span class="toc-text">传递参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E6%96%B0%E9%A1%B5%E9%9D%A2%E6%8E%A5%E6%94%B6%E5%8F%82%E6%95%B0"><span class="toc-number">9.2.</span> <span class="toc-text">在新页面接收参数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6%E5%BC%95%E5%85%A5%E6%97%B6%E7%9A%84%E5%91%BD%E5%90%8D%E9%97%AE%E9%A2%98"><span class="toc-number">10.</span> <span class="toc-text">组件引入时的命名问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E7%BB%84%E5%8D%A1%E7%89%87%E4%B8%AD%EF%BC%8C%E9%87%8C%E9%9D%A2%E7%9A%84%E7%BD%91%E6%A0%BC%E4%B8%8B%E9%9D%A2%E7%9A%84%E6%96%87%E5%AD%97%E6%8F%8F%E8%BF%B0%E8%A2%AB%E6%8C%A1"><span class="toc-number">11.</span> <span class="toc-text">分组卡片中，里面的网格下面的文字描述被挡</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%85%A8%E5%B1%80%E8%AF%B7%E6%B1%82%E8%B7%AF%E5%BE%84"><span class="toc-number">12.</span> <span class="toc-text">配置全局请求路径</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://mojidei.github.io/2024/09/20/%E5%89%8D%E7%AB%AF/uni-app%E5%88%9D%E6%8E%A2/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://mojidei.github.io/2024/09/20/%E5%89%8D%E7%AB%AF/uni-app%E5%88%9D%E6%8E%A2/&text=uni-app初探"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://mojidei.github.io/2024/09/20/%E5%89%8D%E7%AB%AF/uni-app%E5%88%9D%E6%8E%A2/&title=uni-app初探"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://mojidei.github.io/2024/09/20/%E5%89%8D%E7%AB%AF/uni-app%E5%88%9D%E6%8E%A2/&is_video=false&description=uni-app初探"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=uni-app初探&body=Check out this article: https://mojidei.github.io/2024/09/20/%E5%89%8D%E7%AB%AF/uni-app%E5%88%9D%E6%8E%A2/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://mojidei.github.io/2024/09/20/%E5%89%8D%E7%AB%AF/uni-app%E5%88%9D%E6%8E%A2/&title=uni-app初探"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://mojidei.github.io/2024/09/20/%E5%89%8D%E7%AB%AF/uni-app%E5%88%9D%E6%8E%A2/&title=uni-app初探"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://mojidei.github.io/2024/09/20/%E5%89%8D%E7%AB%AF/uni-app%E5%88%9D%E6%8E%A2/&title=uni-app初探"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://mojidei.github.io/2024/09/20/%E5%89%8D%E7%AB%AF/uni-app%E5%88%9D%E6%8E%A2/&title=uni-app初探"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://mojidei.github.io/2024/09/20/%E5%89%8D%E7%AB%AF/uni-app%E5%88%9D%E6%8E%A2/&name=uni-app初探&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://mojidei.github.io/2024/09/20/%E5%89%8D%E7%AB%AF/uni-app%E5%88%9D%E6%8E%A2/&t=uni-app初探"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2024
+    mojidei
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板！\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功！");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

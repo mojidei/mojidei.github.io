@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="问题描述ssh连接我vps时大部分timeout，小部分是连上了但是敲一两行命令就没响应了。结果上看就是连不上。 分析直觉告诉我是网络问题。如果说之前稍微等等度过用网高峰就好了，这次则一直连不上。于是无聊看了一会儿油管…… 视频很流畅。。。这就说明：ssh被不可明说之物识别并丢包并且—— ssh没走代理。 解决昨天从下午开始一直搞搞得左臂肘以下难以动弹，一动就筋疼，现在还没缓过来。好在今天早上搞好">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在windows中通过代理的方式使用ssh客户端进行连接">
+<meta property="og:url" content="https://mojidei.github.io/2024/04/22/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%9C%A8windows%E4%B8%AD%E9%80%9A%E8%BF%87%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E5%BC%8F%E4%BD%BF%E7%94%A8ssh%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9B%E8%A1%8C%E8%BF%9E%E6%8E%A5/index.html">
+<meta property="og:site_name" content="mojideidays">
+<meta property="og:description" content="问题描述ssh连接我vps时大部分timeout，小部分是连上了但是敲一两行命令就没响应了。结果上看就是连不上。 分析直觉告诉我是网络问题。如果说之前稍微等等度过用网高峰就好了，这次则一直连不上。于是无聊看了一会儿油管…… 视频很流畅。。。这就说明：ssh被不可明说之物识别并丢包并且—— ssh没走代理。 解决昨天从下午开始一直搞搞得左臂肘以下难以动弹，一动就筋疼，现在还没缓过来。好在今天早上搞好">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://mojidei.github.io/images/2024-04-22-10-32-26-image.png">
+<meta property="og:image" content="https://mojidei.github.io/images/2024-04-22-10-35-51-image.png">
+<meta property="article:published_time" content="2024-04-22T02:00:39.000Z">
+<meta property="article:modified_time" content="2024-04-22T06:36:06.684Z">
+<meta property="article:author" content="mojidei">
+<meta property="article:tag" content="ssh">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mojidei.github.io/images/2024-04-22-10-32-26-image.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>在windows中通过代理的方式使用ssh客户端进行连接</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="顶部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="上一篇" href="/2024/04/22/blog/%E5%8D%9A%E5%AE%A2%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/2024/04/22/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/windows-terminal%E6%89%93%E5%BC%80git-bash/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://mojidei.github.io/2024/04/22/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%9C%A8windows%E4%B8%AD%E9%80%9A%E8%BF%87%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E5%BC%8F%E4%BD%BF%E7%94%A8ssh%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9B%E8%A1%8C%E8%BF%9E%E6%8E%A5/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://mojidei.github.io/2024/04/22/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%9C%A8windows%E4%B8%AD%E9%80%9A%E8%BF%87%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E5%BC%8F%E4%BD%BF%E7%94%A8ssh%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9B%E8%A1%8C%E8%BF%9E%E6%8E%A5/&text=在windows中通过代理的方式使用ssh客户端进行连接"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://mojidei.github.io/2024/04/22/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%9C%A8windows%E4%B8%AD%E9%80%9A%E8%BF%87%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E5%BC%8F%E4%BD%BF%E7%94%A8ssh%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9B%E8%A1%8C%E8%BF%9E%E6%8E%A5/&title=在windows中通过代理的方式使用ssh客户端进行连接"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://mojidei.github.io/2024/04/22/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%9C%A8windows%E4%B8%AD%E9%80%9A%E8%BF%87%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E5%BC%8F%E4%BD%BF%E7%94%A8ssh%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9B%E8%A1%8C%E8%BF%9E%E6%8E%A5/&is_video=false&description=在windows中通过代理的方式使用ssh客户端进行连接"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=在windows中通过代理的方式使用ssh客户端进行连接&body=Check out this article: https://mojidei.github.io/2024/04/22/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%9C%A8windows%E4%B8%AD%E9%80%9A%E8%BF%87%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E5%BC%8F%E4%BD%BF%E7%94%A8ssh%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9B%E8%A1%8C%E8%BF%9E%E6%8E%A5/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://mojidei.github.io/2024/04/22/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%9C%A8windows%E4%B8%AD%E9%80%9A%E8%BF%87%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E5%BC%8F%E4%BD%BF%E7%94%A8ssh%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9B%E8%A1%8C%E8%BF%9E%E6%8E%A5/&title=在windows中通过代理的方式使用ssh客户端进行连接"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://mojidei.github.io/2024/04/22/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%9C%A8windows%E4%B8%AD%E9%80%9A%E8%BF%87%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E5%BC%8F%E4%BD%BF%E7%94%A8ssh%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9B%E8%A1%8C%E8%BF%9E%E6%8E%A5/&title=在windows中通过代理的方式使用ssh客户端进行连接"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://mojidei.github.io/2024/04/22/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%9C%A8windows%E4%B8%AD%E9%80%9A%E8%BF%87%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E5%BC%8F%E4%BD%BF%E7%94%A8ssh%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9B%E8%A1%8C%E8%BF%9E%E6%8E%A5/&title=在windows中通过代理的方式使用ssh客户端进行连接"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://mojidei.github.io/2024/04/22/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%9C%A8windows%E4%B8%AD%E9%80%9A%E8%BF%87%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E5%BC%8F%E4%BD%BF%E7%94%A8ssh%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9B%E8%A1%8C%E8%BF%9E%E6%8E%A5/&title=在windows中通过代理的方式使用ssh客户端进行连接"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://mojidei.github.io/2024/04/22/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%9C%A8windows%E4%B8%AD%E9%80%9A%E8%BF%87%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E5%BC%8F%E4%BD%BF%E7%94%A8ssh%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9B%E8%A1%8C%E8%BF%9E%E6%8E%A5/&name=在windows中通过代理的方式使用ssh客户端进行连接&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://mojidei.github.io/2024/04/22/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%9C%A8windows%E4%B8%AD%E9%80%9A%E8%BF%87%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E5%BC%8F%E4%BD%BF%E7%94%A8ssh%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9B%E8%A1%8C%E8%BF%9E%E6%8E%A5/&t=在windows中通过代理的方式使用ssh客户端进行连接"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E6%9E%90"><span class="toc-number">2.</span> <span class="toc-text">分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3"><span class="toc-number">3.</span> <span class="toc-text">解决</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        在windows中通过代理的方式使用ssh客户端进行连接
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">mojidei</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2024-04-22T02:00:39.000Z" class="dt-published" itemprop="datePublished">2024-04-22</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/ssh/" rel="tag">ssh</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>ssh连接我vps时大部分timeout，小部分是连上了但是敲一两行命令就没响应了。结果上看就是<strong>连不上</strong>。</p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>直觉告诉我是网络问题。如果说之前稍微等等度过用网高峰就好了，这次则一直连不上。于是无聊看了一会儿油管……</p>
+<p>视频很流畅。。。这就说明：ssh被不可明说之物识别并丢包并且——</p>
+<p><strong>ssh没走代理。</strong></p>
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>昨天从下午开始一直搞搞得左臂肘以下难以动弹，一动就筋疼，现在还没缓过来。好在今天早上搞好了。</p>
+<p>曾经我天真地认为，在代理软件上设置了全局代理就万事大吉了，然而其实需要给像ssh这样的软件单独进行配置……</p>
+<p>ssh需要在别的程序的帮助下才能使用代理的方式。比较常见的是nc(NetCat)。我这里就不用它了，因为我在网上下的exe可执行文件的nc的功能似乎不全。Linux用nc的多，Mac用Corkscrew的多。</p>
+<p>所以这里我们使用connect</p>
+<p><strong>connet</strong>在windos版的<strong>git里面</strong>，我们直接在git bash里面敲ssh命令连接就可以了。如果你觉得git自带的git bash界面不够美观，可以看我写的前一篇文章《windows terminal打开git bash》</p>
+<p>首先我们找到ssh的配置文件，路径<code>C:\Users\oneday\.ssh</code>文件名config</p>
+<p>在前面添上这么一行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ProxyCommand connect -S 127.0.0.1:10808 %h %p</span><br></pre></td></tr></table></figure>
+
+<p>-S表示使用socket协议。也就是说这个可以用别的协议，不过你得注意你代理软件对应的协议的端口号</p>
+<p>127.0.0.1是本地ip，windos设置-&gt;网络和Internet-&gt;代理</p>
+<p><img src="/../images/2024-04-22-10-32-26-image.png"></p>
+<p>当然这个不是我手动设的，是代理软件自动设的。</p>
+<p>10808是端口号。我用的代理软件是v2rayN，设置-&gt;参数</p>
+<p><img src="/../images/2024-04-22-10-35-51-image.png"></p>
+<p>当然这个代理不是凭空就有的，你需要自己搭建代理（不推荐）或者购买代理服务。这个不能细说，因为是不能碰的滑梯。<del>但所有人都在用所以你也得用不能因为不能用所以就不用。</del></p>
+<p>最后把<code>C:\Program Files\Git\mingw64\bin</code>放进了环境变量。</p>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://weilining.github.io/294.html">终端使用代理加速的正确方式（Clash） | Ln’s Blog</a></p>
+<p>顺便设一下git</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global http.proxy &#x27;socks5://127.0.0.1:10808&#x27; </span><br><span class="line">git config --global https.proxy &#x27;socks5://127.0.0.1:10808&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>总结：发现终端或者软件在终端不走代理的话就设置一下</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">首页</a></li>
+        
+          <li><a href="/about/">关于</a></li>
+        
+          <li><a href="/archives/">归档</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E6%9E%90"><span class="toc-number">2.</span> <span class="toc-text">分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3"><span class="toc-number">3.</span> <span class="toc-text">解决</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://mojidei.github.io/2024/04/22/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%9C%A8windows%E4%B8%AD%E9%80%9A%E8%BF%87%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E5%BC%8F%E4%BD%BF%E7%94%A8ssh%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9B%E8%A1%8C%E8%BF%9E%E6%8E%A5/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://mojidei.github.io/2024/04/22/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%9C%A8windows%E4%B8%AD%E9%80%9A%E8%BF%87%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E5%BC%8F%E4%BD%BF%E7%94%A8ssh%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9B%E8%A1%8C%E8%BF%9E%E6%8E%A5/&text=在windows中通过代理的方式使用ssh客户端进行连接"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://mojidei.github.io/2024/04/22/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%9C%A8windows%E4%B8%AD%E9%80%9A%E8%BF%87%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E5%BC%8F%E4%BD%BF%E7%94%A8ssh%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9B%E8%A1%8C%E8%BF%9E%E6%8E%A5/&title=在windows中通过代理的方式使用ssh客户端进行连接"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://mojidei.github.io/2024/04/22/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%9C%A8windows%E4%B8%AD%E9%80%9A%E8%BF%87%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E5%BC%8F%E4%BD%BF%E7%94%A8ssh%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9B%E8%A1%8C%E8%BF%9E%E6%8E%A5/&is_video=false&description=在windows中通过代理的方式使用ssh客户端进行连接"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=在windows中通过代理的方式使用ssh客户端进行连接&body=Check out this article: https://mojidei.github.io/2024/04/22/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%9C%A8windows%E4%B8%AD%E9%80%9A%E8%BF%87%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E5%BC%8F%E4%BD%BF%E7%94%A8ssh%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9B%E8%A1%8C%E8%BF%9E%E6%8E%A5/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://mojidei.github.io/2024/04/22/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%9C%A8windows%E4%B8%AD%E9%80%9A%E8%BF%87%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E5%BC%8F%E4%BD%BF%E7%94%A8ssh%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9B%E8%A1%8C%E8%BF%9E%E6%8E%A5/&title=在windows中通过代理的方式使用ssh客户端进行连接"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://mojidei.github.io/2024/04/22/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%9C%A8windows%E4%B8%AD%E9%80%9A%E8%BF%87%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E5%BC%8F%E4%BD%BF%E7%94%A8ssh%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9B%E8%A1%8C%E8%BF%9E%E6%8E%A5/&title=在windows中通过代理的方式使用ssh客户端进行连接"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://mojidei.github.io/2024/04/22/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%9C%A8windows%E4%B8%AD%E9%80%9A%E8%BF%87%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E5%BC%8F%E4%BD%BF%E7%94%A8ssh%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9B%E8%A1%8C%E8%BF%9E%E6%8E%A5/&title=在windows中通过代理的方式使用ssh客户端进行连接"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://mojidei.github.io/2024/04/22/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%9C%A8windows%E4%B8%AD%E9%80%9A%E8%BF%87%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E5%BC%8F%E4%BD%BF%E7%94%A8ssh%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9B%E8%A1%8C%E8%BF%9E%E6%8E%A5/&title=在windows中通过代理的方式使用ssh客户端进行连接"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://mojidei.github.io/2024/04/22/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%9C%A8windows%E4%B8%AD%E9%80%9A%E8%BF%87%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E5%BC%8F%E4%BD%BF%E7%94%A8ssh%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9B%E8%A1%8C%E8%BF%9E%E6%8E%A5/&name=在windows中通过代理的方式使用ssh客户端进行连接&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://mojidei.github.io/2024/04/22/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%9C%A8windows%E4%B8%AD%E9%80%9A%E8%BF%87%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E5%BC%8F%E4%BD%BF%E7%94%A8ssh%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9B%E8%A1%8C%E8%BF%9E%E6%8E%A5/&t=在windows中通过代理的方式使用ssh客户端进行连接"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2024
+    mojidei
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板！\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功！");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
