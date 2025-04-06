@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>在windows中通过代理的方式使用ssh客户端进行连接 | mojidei</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="问题描述ssh连接我vps时大部分timeout，小部分是连上了但是敲一两行命令就没响应了。结果上看就是连不上。 分析直觉告诉我是网络问题。如果说之前稍微等等度过用网高峰就好了，这次则一直连不上。于是无聊看了一会儿油管…… 视频很流畅。。。这就说明：ssh被不可明说之物识别并丢包并且—— ssh没走代理。 解决昨天从下午开始一直搞搞得左臂肘以下难以动弹，一动就筋疼，现在还没缓过来。好在今天早上搞好">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在windows中通过代理的方式使用ssh客户端进行连接">
+<meta property="og:url" content="https://mojidei.github.io/2024/04/22/%E5%9C%A8windows%E4%B8%AD%E9%80%9A%E8%BF%87%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E5%BC%8F%E4%BD%BF%E7%94%A8ssh%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9B%E8%A1%8C%E8%BF%9E%E6%8E%A5/index.html">
+<meta property="og:site_name" content="mojidei">
+<meta property="og:description" content="问题描述ssh连接我vps时大部分timeout，小部分是连上了但是敲一两行命令就没响应了。结果上看就是连不上。 分析直觉告诉我是网络问题。如果说之前稍微等等度过用网高峰就好了，这次则一直连不上。于是无聊看了一会儿油管…… 视频很流畅。。。这就说明：ssh被不可明说之物识别并丢包并且—— ssh没走代理。 解决昨天从下午开始一直搞搞得左臂肘以下难以动弹，一动就筋疼，现在还没缓过来。好在今天早上搞好">
+<meta property="og:locale">
+<meta property="og:image" content="https://mojidei.github.io/images/2024-04-22-10-32-26-image.png">
+<meta property="og:image" content="https://mojidei.github.io/images/2024-04-22-10-35-51-image.png">
+<meta property="article:published_time" content="2024-04-22T02:00:39.000Z">
+<meta property="article:modified_time" content="2025-04-06T07:50:27.221Z">
+<meta property="article:author" content="mojidei">
+<meta property="article:tag" content="ssh">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mojidei.github.io/images/2024-04-22-10-32-26-image.png">
+  
+    <link rel="alternate" href="/atom.xml" title="mojidei" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">mojidei</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Suche"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://mojidei.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-在windows中通过代理的方式使用ssh客户端进行连接" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/04/22/%E5%9C%A8windows%E4%B8%AD%E9%80%9A%E8%BF%87%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E5%BC%8F%E4%BD%BF%E7%94%A8ssh%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9B%E8%A1%8C%E8%BF%9E%E6%8E%A5/" class="article-date">
+  <time class="dt-published" datetime="2024-04-22T02:00:39.000Z" itemprop="datePublished">2024-04-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      在windows中通过代理的方式使用ssh客户端进行连接
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>ssh连接我vps时大部分timeout，小部分是连上了但是敲一两行命令就没响应了。结果上看就是<strong>连不上</strong>。</p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>直觉告诉我是网络问题。如果说之前稍微等等度过用网高峰就好了，这次则一直连不上。于是无聊看了一会儿油管……</p>
+<p>视频很流畅。。。这就说明：ssh被不可明说之物识别并丢包并且——</p>
+<p><strong>ssh没走代理。</strong></p>
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>昨天从下午开始一直搞搞得左臂肘以下难以动弹，一动就筋疼，现在还没缓过来。好在今天早上搞好了。</p>
+<p>曾经我天真地认为，在代理软件上设置了全局代理就万事大吉了，然而其实需要给像ssh这样的软件单独进行配置……</p>
+<p>ssh需要在别的程序的帮助下才能使用代理的方式。比较常见的是nc(NetCat)。我这里就不用它了，因为我在网上下的exe可执行文件的nc的功能似乎不全。Linux用nc的多，Mac用Corkscrew的多。</p>
+<p>所以这里我们使用connect</p>
+<p><strong>connet</strong>在windos版的<strong>git里面</strong>，我们直接在git bash里面敲ssh命令连接就可以了。如果你觉得git自带的git bash界面不够美观，可以看我写的前一篇文章《windows terminal打开git bash》</p>
+<p>首先我们找到ssh的配置文件，路径<code>C:\Users\oneday\.ssh</code>文件名config</p>
+<p>在前面添上这么一行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ProxyCommand connect -S 127.0.0.1:10808 %h %p</span><br></pre></td></tr></table></figure>
+
+<p>-S表示使用socket协议。也就是说这个可以用别的协议，不过你得注意你代理软件对应的协议的端口号</p>
+<p>127.0.0.1是本地ip，windos设置-&gt;网络和Internet-&gt;代理</p>
+<p><img src="/../images/2024-04-22-10-32-26-image.png"></p>
+<p>当然这个不是我手动设的，是代理软件自动设的。</p>
+<p>10808是端口号。我用的代理软件是v2rayN，设置-&gt;参数</p>
+<p><img src="/../images/2024-04-22-10-35-51-image.png"></p>
+<p>当然这个代理不是凭空就有的，你需要自己搭建代理（不推荐）或者购买代理服务。这个不能细说，因为是不能碰的滑梯。<del>但所有人都在用所以你也得用不能因为不能用所以就不用。</del></p>
+<p>最后把<code>C:\Program Files\Git\mingw64\bin</code>放进了环境变量。</p>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://weilining.github.io/294.html">终端使用代理加速的正确方式（Clash） | Ln’s Blog</a></p>
+<p>顺便设一下git</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global http.proxy &#x27;socks5://127.0.0.1:10808&#x27; </span><br><span class="line">git config --global https.proxy &#x27;socks5://127.0.0.1:10808&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>总结：发现终端或者软件在终端不走代理的话就设置一下</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://mojidei.github.io/2024/04/22/%E5%9C%A8windows%E4%B8%AD%E9%80%9A%E8%BF%87%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E5%BC%8F%E4%BD%BF%E7%94%A8ssh%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9B%E8%A1%8C%E8%BF%9E%E6%8E%A5/" data-id="cm95cletl001pw0uo6os98r8p" data-title="在windows中通过代理的方式使用ssh客户端进行连接" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ssh/" rel="tag">ssh</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2024/04/22/%E5%8D%9A%E5%AE%A2%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          博客自动更新
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/04/22/windows-terminal%E6%89%93%E5%BC%80git-bash/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">windows terminal打开git bash</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/" rel="tag">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blade/" rel="tag">blade</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debian/" rel="tag">debian</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flask/" rel="tag">flask</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gunicorn/" rel="tag">gunicorn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/" rel="tag">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/" rel="tag">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/" rel="tag">ssh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/terminal/" rel="tag">terminal</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vbs/" rel="tag">vbs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B8%B8%E8%AF%86/" rel="tag">常识</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%82%E8%B0%88/" rel="tag">杂谈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%82%E9%A1%B9/" rel="tag">杂项</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/android/" style="font-size: 10px;">android</a> <a href="/tags/blade/" style="font-size: 10px;">blade</a> <a href="/tags/debian/" style="font-size: 12.5px;">debian</a> <a href="/tags/docker/" style="font-size: 15px;">docker</a> <a href="/tags/flask/" style="font-size: 17.5px;">flask</a> <a href="/tags/gunicorn/" style="font-size: 10px;">gunicorn</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/terminal/" style="font-size: 10px;">terminal</a> <a href="/tags/vbs/" style="font-size: 10px;">vbs</a> <a href="/tags/vue/" style="font-size: 12.5px;">vue</a> <a href="/tags/%E5%B8%B8%E8%AF%86/" style="font-size: 10px;">常识</a> <a href="/tags/%E6%9D%82%E8%B0%88/" style="font-size: 20px;">杂谈</a> <a href="/tags/%E6%9D%82%E9%A1%B9/" style="font-size: 10px;">杂项</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">April 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">September 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">June 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/04/06/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2024/09/20/uni-app%E5%88%9D%E6%8E%A2/">uni-app初探</a>
+          </li>
+        
+          <li>
+            <a href="/2024/09/20/flask%E4%B8%8Ejwt/">flask与jwt</a>
+          </li>
+        
+          <li>
+            <a href="/2024/09/20/flask%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93/">flask操作数据库</a>
+          </li>
+        
+          <li>
+            <a href="/2024/09/19/SpringBoot%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE/">SpringBoot创建项目</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 mojidei<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

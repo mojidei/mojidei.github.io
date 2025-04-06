@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>自动更新hexo博客 | mojidei</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="大致原理按照昨天的办法，现在有三个hexo仓库：客户端一个、&#x2F;root&#x2F;git&#x2F;blog.git一个、nginx.conf部署的目录里一个。 使用crontab设置定时任务，每分钟拉取一次仓库。 为服务器root用户生成ssh密钥谁都可以clone仓库，但要想pull，就得有密钥，否则就会报错：”Please make sure you have the correc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自动更新hexo博客">
+<meta property="og:url" content="https://mojidei.github.io/2023/11/13/auto-update-blog/index.html">
+<meta property="og:site_name" content="mojidei">
+<meta property="og:description" content="大致原理按照昨天的办法，现在有三个hexo仓库：客户端一个、&#x2F;root&#x2F;git&#x2F;blog.git一个、nginx.conf部署的目录里一个。 使用crontab设置定时任务，每分钟拉取一次仓库。 为服务器root用户生成ssh密钥谁都可以clone仓库，但要想pull，就得有密钥，否则就会报错：”Please make sure you have the correc">
+<meta property="og:locale">
+<meta property="article:published_time" content="2023-11-13T09:10:03.000Z">
+<meta property="article:modified_time" content="2025-04-06T07:50:27.217Z">
+<meta property="article:author" content="mojidei">
+<meta property="article:tag" content="shell">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="mojidei" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">mojidei</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Suche"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://mojidei.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-auto-update-blog" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/13/auto-update-blog/" class="article-date">
+  <time class="dt-published" datetime="2023-11-13T09:10:03.000Z" itemprop="datePublished">2023-11-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      自动更新hexo博客
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="大致原理"><a href="#大致原理" class="headerlink" title="大致原理"></a>大致原理</h2><p>按照昨天的办法，现在有三个hexo仓库：客户端一个、&#x2F;root&#x2F;git&#x2F;blog.git一个、nginx.conf部署的目录里一个。</p>
+<p>使用crontab设置定时任务，每分钟拉取一次仓库。</p>
+<h2 id="为服务器root用户生成ssh密钥"><a href="#为服务器root用户生成ssh密钥" class="headerlink" title="为服务器root用户生成ssh密钥"></a>为服务器root用户生成ssh密钥</h2><p>谁都可以clone仓库，但要想pull，就得有密钥，否则就会报错：”Please make sure you have the correct access rights and the repository exists.”</p>
+<p>生成密钥很简单</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;debian-root&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>-C 后边跟的是注释哈，所以没写邮箱。一路回车下去，密钥就创建好了。接下来放进authorized_keys，允许它自己登陆自己。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /root/.ssh</span><br><span class="line"><span class="built_in">cat</span> id_rsa.pub &gt;&gt; authorized_keys</span><br></pre></td></tr></table></figure>
+
+<p>另外，由于nginx.conf部署的目录里那个仓库“&#x2F;usr&#x2F;share&#x2F;nginx&#x2F;blog”权限需要root，而上次我们用的是别的用户创建的仓库……这就乱了，pull的时候还要输入密码。因此我把上次&#x2F;home&#x2F;oneday&#x2F;git&#x2F;blog.git删掉了，重新用root整。&#x2F;usr&#x2F;share&#x2F;nginx&#x2F;blog仓库也是一样。</p>
+<h2 id="创建脚本"><a href="#创建脚本" class="headerlink" title="创建脚本"></a>创建脚本</h2><p>vim blog2.sh</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> /var/www/blog</span><br><span class="line">git pull</span><br></pre></td></tr></table></figure>
+
+<p>那个“&#x2F;var&#x2F;www&#x2F;blog”是我真实环境里的目录，之前的&#x2F;usr&#x2F;share&#x2F;nginx&#x2F;blog是我虚拟机用的，可能有点乱。在这里这俩其实是一个东西，使用的目录也是唯一的。</p>
+<p>添加执行权限</p>
+<p><code>chmod +x blog2.sh</code></p>
+<h2 id="编辑定时任务"><a href="#编辑定时任务" class="headerlink" title="编辑定时任务"></a>编辑定时任务</h2><p><code>crontab -e</code></p>
+<p>现在我们进入了一个文件，cron每分钟会看一下这个文件里面有没有需要执行的脚本。接下来我们添加一行</p>
+<p><code>*/1 * * * * /root/sh/blog2.sh</code></p>
+<p>这行的意思是，每分钟执行一次后面这个脚本。</p>
+<p>完成了。即使不重启cron（centos里是crond），cron也会按照配置好的执行。</p>
+<h2 id="可能用到的"><a href="#可能用到的" class="headerlink" title="可能用到的"></a>可能用到的</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">crontab -l          看时程表</span><br><span class="line">cat /var/log/cron   看cron的log</span><br><span class="line">ls -l               看权限</span><br><span class="line">service cron start  启动服务</span><br><span class="line">service cron restart重启服务</span><br></pre></td></tr></table></figure>
+
+<p>常见的定时任务问题包括：</p>
+<ol>
+<li>cron未启动</li>
+<li>脚本没有执行权限</li>
+<li>不是绝对路径</li>
+<li>时差或linux时间与互联网时间不一致</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://mojidei.github.io/2023/11/13/auto-update-blog/" data-id="cm95clete000hw0uof0am2lm7" data-title="自动更新hexo博客" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/" rel="tag">shell</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/11/19/technology-makes-life-better/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          科技让生活更美好
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/11/12/hexo-deploy/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">部署hexo!</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/" rel="tag">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blade/" rel="tag">blade</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debian/" rel="tag">debian</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flask/" rel="tag">flask</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gunicorn/" rel="tag">gunicorn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/" rel="tag">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/" rel="tag">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/" rel="tag">ssh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/terminal/" rel="tag">terminal</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vbs/" rel="tag">vbs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B8%B8%E8%AF%86/" rel="tag">常识</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%82%E8%B0%88/" rel="tag">杂谈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%82%E9%A1%B9/" rel="tag">杂项</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/android/" style="font-size: 10px;">android</a> <a href="/tags/blade/" style="font-size: 10px;">blade</a> <a href="/tags/debian/" style="font-size: 12.5px;">debian</a> <a href="/tags/docker/" style="font-size: 15px;">docker</a> <a href="/tags/flask/" style="font-size: 17.5px;">flask</a> <a href="/tags/gunicorn/" style="font-size: 10px;">gunicorn</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/terminal/" style="font-size: 10px;">terminal</a> <a href="/tags/vbs/" style="font-size: 10px;">vbs</a> <a href="/tags/vue/" style="font-size: 12.5px;">vue</a> <a href="/tags/%E5%B8%B8%E8%AF%86/" style="font-size: 10px;">常识</a> <a href="/tags/%E6%9D%82%E8%B0%88/" style="font-size: 20px;">杂谈</a> <a href="/tags/%E6%9D%82%E9%A1%B9/" style="font-size: 10px;">杂项</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">April 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">September 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">June 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/04/06/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2024/09/20/uni-app%E5%88%9D%E6%8E%A2/">uni-app初探</a>
+          </li>
+        
+          <li>
+            <a href="/2024/09/20/flask%E4%B8%8Ejwt/">flask与jwt</a>
+          </li>
+        
+          <li>
+            <a href="/2024/09/20/flask%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93/">flask操作数据库</a>
+          </li>
+        
+          <li>
+            <a href="/2024/09/19/SpringBoot%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE/">SpringBoot创建项目</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 mojidei<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

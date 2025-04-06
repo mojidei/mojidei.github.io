@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>mojidei</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="mojidei">
+<meta property="og:url" content="https://mojidei.github.io/page/4/index.html">
+<meta property="og:site_name" content="mojidei">
+<meta property="og:locale">
+<meta property="article:author" content="mojidei">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="mojidei" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">mojidei</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Suche"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://mojidei.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-flask-helloworld的404" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/04/18/flask-helloworld%E7%9A%84404/" class="article-date">
+  <time class="dt-published" datetime="2024-04-18T02:03:11.000Z" itemprop="datePublished">2024-04-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/04/18/flask-helloworld%E7%9A%84404/">flask:helloworld的404</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="复现"><a href="#复现" class="headerlink" title="复现"></a>复现</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@app.route(&#x27;/hello&#x27;)</span><br><span class="line">def hello2():</span><br><span class="line">    return &quot;hello&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@app.route(&#x27;/hello/&#x27;)</span><br><span class="line">def hello3():</span><br><span class="line">    return &quot;hello/&quot;</span><br></pre></td></tr></table></figure>
+
+<p>浏览器输入<a target="_blank" rel="noopener" href="http://127.0.0.1:5000/hello">http://127.0.0.1:5000/hello</a> ，回车，得到显示为“hello&#x2F;”</p>
+<h2 id="探究"><a href="#探究" class="headerlink" title="探究"></a>探究</h2><p>&#x2F;hello相当于文件，&#x2F;hello&#x2F;相当于目录</p>
+<p>看上去有时候浏览器会给地址最后自动加上&#x2F;，原因不明。</p>
+<p>注释掉&#x2F;hello&#x2F;后flash控制台的log</p>
+<blockquote>
+<p>127.0.0.1 - - [18&#x2F;Apr&#x2F;2024 10:57:09] “GET &#x2F;hello&#x2F; HTTP&#x2F;1.1” 404 -</p>
+</blockquote>
+<p>总之就是该访问&#x2F;hello的时候莫名奇妙的访问了&#x2F;hello&#x2F;</p>
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>要么就是换个名字，要么就是把&#x2F;hello里的东西塞进&#x2F;hello&#x2F;里。</p>
+<h2 id="存疑"><a href="#存疑" class="headerlink" title="存疑"></a>存疑</h2><p>这玩应会不会跟前后端交互的时候出问题有关系？我上次用axios时候虽然能运行但是url有点怪，看上去多或者少&#x2F;却正常运作。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://mojidei.github.io/2024/04/18/flask-helloworld%E7%9A%84404/" data-id="cm95clete000jw0uo2lfd6w57" data-title="flask:helloworld的404" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/flask/" rel="tag">flask</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-231208" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/12/08/231208/" class="article-date">
+  <time class="dt-published" datetime="2023-12-08T12:18:17.000Z" itemprop="datePublished">2023-12-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/12/08/231208/">hello spring boot</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>因为要开始写软工课用的代码了所以就打算整一下idea，因为eclipse有点丑。</p>
+<p>先配一下maven（一个构建工具）用idea默认自带的maven就行，maven仓库也用默认的</p>
+<p>配一下镜像，参考<a target="_blank" rel="noopener" href="https://developer.aliyun.com/mvn/guide">https://developer.aliyun.com/mvn/guide</a></p>
+<p>文件路径：<code>C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2023.2.5\plugins\maven\lib\maven3\conf\settings.xml</code></p>
+<p>在<code>&lt;mirrors&gt;&lt;/mirrors&gt;</code>标签中添加 mirror 子节点</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">id</span>&gt;</span>aliyunmaven<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>*<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>阿里云公共仓库<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">url</span>&gt;</span>https://maven.aliyun.com/repository/public<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>配置完镜像需要重启idea</p>
+<p>接下来新建项目，使用课本上说的最简单的方法……从网上下模板，然而spring官方不提供java8版本的模板了，所以我们从阿里这块下：<a target="_blank" rel="noopener" href="https://start.aliyun.com/">https://start.aliyun.com/</a></p>
+<p>选俩依赖工具：Spring Boot DevTools、Spring Web</p>
+<p>解压好后，idea 新建-&gt;来自现有源代码的项目</p>
+<p>项目建好惹，找到DemApplication这个文件，点开后再点右上角小三角运行</p>
+<p>浏览器<a target="_blank" rel="noopener" href="http://127.0.0.1:8080/">http://127.0.0.1:8080/</a> ，一个helloworld页面就展现在眼前了……</p>
+<p>然而我并没有配置tomcat，怎么回事捏</p>
+<p>另外收藏一下这个<a target="_blank" rel="noopener" href="https://mvnrepository.com/">https://mvnrepository.com/</a> ，配pom文件用的</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://mojidei.github.io/2023/12/08/231208/" data-id="cm95cleta0004w0uoauy55j8m" data-title="hello spring boot" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/" rel="tag">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-231204" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/12/04/231204/" class="article-date">
+  <time class="dt-published" datetime="2023-12-04T10:53:54.000Z" itemprop="datePublished">2023-12-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/12/04/231204/">android.database.CursorIndexOutOfBoundsException</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>android.database.CursorIndexOutOfBoundsException: Index -1 requested, with a size of 23</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (cursor2.getCount()==<span class="number">0</span>)&#123;</span><br><span class="line">    Toast.makeText(MainActivity.<span class="built_in">this</span>,<span class="string">&quot;没有数据&quot;</span>,Toast.LENGTH_SHORT).show();</span><br><span class="line">&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">    cursor.moveToFirst();<span class="comment">//注意这里，应该为cursor2</span></span><br><span class="line">    titles[tmp_count]=cursor2.getString(<span class="number">1</span>);</span><br><span class="line">    tmp_count++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">while</span> (cursor.moveToNext())&#123;<span class="comment">//这里也是</span></span><br><span class="line">    titles[tmp_count]=cursor2.getString(<span class="number">1</span>);</span><br><span class="line">    tmp_count++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://mojidei.github.io/2023/12/04/231204/" data-id="cm95clet80002w0uo7tf1dccl" data-title="android.database.CursorIndexOutOfBoundsException" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/" rel="tag">android</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-231121" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/21/231121/" class="article-date">
+  <time class="dt-published" datetime="2023-11-21T08:07:51.000Z" itemprop="datePublished">2023-11-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/21/231121/">eclipse与springMVC排错两则</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="简单配置tomcat服务"><a href="#简单配置tomcat服务" class="headerlink" title="简单配置tomcat服务"></a>简单配置tomcat服务</h2><p>导入war的时候直接把我服务配置整没了。</p>
+<p>我直接（run on service菜单）manually define a new server。</p>
+<p>然而提示端口（prot）出问题</p>
+<p>没关系，直接上方菜单 窗口-&gt;显示视图-&gt;其他-&gt;搜索框搜索server，把下方server栏打开，双击服务（tomcat 9.0 serve）进行一个服务的配置</p>
+<p>看到右边“Ports”只改两项：Tomcat admin port : 8082,HTTP&#x2F;1.1:8081</p>
+<p>ctrl+s保存一下</p>
+<h2 id="500-……-nested-exception-is-java-lang-IllegalArgumentException-Unsupported-class-file-major-version-61"><a href="#500-……-nested-exception-is-java-lang-IllegalArgumentException-Unsupported-class-file-major-version-61" class="headerlink" title="500 …… nested exception is java.lang.IllegalArgumentException: Unsupported class file major version 61"></a>500 …… nested exception is java.lang.IllegalArgumentException: Unsupported class file major version 61</h2><p>报错信息不但比我的显示器高，还比我的显示器宽……所以就不贴了</p>
+<p>这个是第一条根本原因的最后一小句话</p>
+<p>搜了一下，大致意思就是：spring还不适配java17。。。</p>
+<p>哈人，eclipse自带了一堆jre，难怪左侧项目管理中的：<br><code>项目名/Java Resources/Libraries/JRE系统库[Javase-17]</code><br>与我的lab是如此的格格不入</p>
+<p>直接右键-&gt;属性 点开执行环境的下拉菜单，选取熟悉的JavaSE-1.8(jre),应用并关闭</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://mojidei.github.io/2023/11/21/231121/" data-id="cm95clet60001w0uo2tx5bvra" data-title="eclipse与springMVC排错两则" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/" rel="tag">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-technology-makes-life-better" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/19/technology-makes-life-better/" class="article-date">
+  <time class="dt-published" datetime="2023-11-19T05:18:36.000Z" itemprop="datePublished">2023-11-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/19/technology-makes-life-better/">科技让生活更美好</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>什么是活着？为什么而活？如何去活？这三个问题困扰我已经有一年了。虽然它们并不是总是出现，但当我遇见迷茫与困惑之时难免碰到这三个问题。</p>
+<p>这一年间，虽然我尝试从不同的角度回答这三个问题，但是答案并不尽如人意。我尝试着理解文化、社会……以及哲学……然而可能是因为我不够努力或者悟性不够，或者其他什么原因……我并不能很好的理解这些东西，更谈不上很好的解答这些问题了。</p>
+<p>于是，我现在希望换个方向，不由根本到表面（自底向上）的去解决这些看上去相对根本的问题，而是从表面与小处着手，解决一些生活中的小问题，自顶向下地处理这些问题。</p>
+<p>科学技术适合来解决这些小问题。比起人文社科，形式化验证的学科更加具有一致性，能够在一定程度上避免自相矛盾与混乱。</p>
+<p>选取并使用泛用性较强的科技，用以理解生活，这就是接下来我要做的。</p>
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=4899127&auto=0&height=66"></iframe>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://mojidei.github.io/2023/11/19/technology-makes-life-better/" data-id="cm95cleti0013w0uoaixu5m84" data-title="科技让生活更美好" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9D%82%E8%B0%88/" rel="tag">杂谈</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-auto-update-blog" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/13/auto-update-blog/" class="article-date">
+  <time class="dt-published" datetime="2023-11-13T09:10:03.000Z" itemprop="datePublished">2023-11-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/13/auto-update-blog/">自动更新hexo博客</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="大致原理"><a href="#大致原理" class="headerlink" title="大致原理"></a>大致原理</h2><p>按照昨天的办法，现在有三个hexo仓库：客户端一个、&#x2F;root&#x2F;git&#x2F;blog.git一个、nginx.conf部署的目录里一个。</p>
+<p>使用crontab设置定时任务，每分钟拉取一次仓库。</p>
+<h2 id="为服务器root用户生成ssh密钥"><a href="#为服务器root用户生成ssh密钥" class="headerlink" title="为服务器root用户生成ssh密钥"></a>为服务器root用户生成ssh密钥</h2><p>谁都可以clone仓库，但要想pull，就得有密钥，否则就会报错：”Please make sure you have the correct access rights and the repository exists.”</p>
+<p>生成密钥很简单</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;debian-root&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>-C 后边跟的是注释哈，所以没写邮箱。一路回车下去，密钥就创建好了。接下来放进authorized_keys，允许它自己登陆自己。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /root/.ssh</span><br><span class="line"><span class="built_in">cat</span> id_rsa.pub &gt;&gt; authorized_keys</span><br></pre></td></tr></table></figure>
+
+<p>另外，由于nginx.conf部署的目录里那个仓库“&#x2F;usr&#x2F;share&#x2F;nginx&#x2F;blog”权限需要root，而上次我们用的是别的用户创建的仓库……这就乱了，pull的时候还要输入密码。因此我把上次&#x2F;home&#x2F;oneday&#x2F;git&#x2F;blog.git删掉了，重新用root整。&#x2F;usr&#x2F;share&#x2F;nginx&#x2F;blog仓库也是一样。</p>
+<h2 id="创建脚本"><a href="#创建脚本" class="headerlink" title="创建脚本"></a>创建脚本</h2><p>vim blog2.sh</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> /var/www/blog</span><br><span class="line">git pull</span><br></pre></td></tr></table></figure>
+
+<p>那个“&#x2F;var&#x2F;www&#x2F;blog”是我真实环境里的目录，之前的&#x2F;usr&#x2F;share&#x2F;nginx&#x2F;blog是我虚拟机用的，可能有点乱。在这里这俩其实是一个东西，使用的目录也是唯一的。</p>
+<p>添加执行权限</p>
+<p><code>chmod +x blog2.sh</code></p>
+<h2 id="编辑定时任务"><a href="#编辑定时任务" class="headerlink" title="编辑定时任务"></a>编辑定时任务</h2><p><code>crontab -e</code></p>
+<p>现在我们进入了一个文件，cron每分钟会看一下这个文件里面有没有需要执行的脚本。接下来我们添加一行</p>
+<p><code>*/1 * * * * /root/sh/blog2.sh</code></p>
+<p>这行的意思是，每分钟执行一次后面这个脚本。</p>
+<p>完成了。即使不重启cron（centos里是crond），cron也会按照配置好的执行。</p>
+<h2 id="可能用到的"><a href="#可能用到的" class="headerlink" title="可能用到的"></a>可能用到的</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">crontab -l          看时程表</span><br><span class="line">cat /var/log/cron   看cron的log</span><br><span class="line">ls -l               看权限</span><br><span class="line">service cron start  启动服务</span><br><span class="line">service cron restart重启服务</span><br></pre></td></tr></table></figure>
+
+<p>常见的定时任务问题包括：</p>
+<ol>
+<li>cron未启动</li>
+<li>脚本没有执行权限</li>
+<li>不是绝对路径</li>
+<li>时差或linux时间与互联网时间不一致</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://mojidei.github.io/2023/11/13/auto-update-blog/" data-id="cm95clete000hw0uof0am2lm7" data-title="自动更新hexo博客" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/" rel="tag">shell</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-hexo-deploy" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/12/hexo-deploy/" class="article-date">
+  <time class="dt-published" datetime="2023-11-12T12:49:25.000Z" itemprop="datePublished">2023-11-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/12/hexo-deploy/">部署hexo!</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>有时候就觉得，把博客放在不存在的网站上不是个事，说不定哪天就失联了，遂决定扔到自己服务器上。</p>
+<p>在服务器上安装git,然后建个仓库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init --bare blog.git</span><br></pre></td></tr></table></figure>
+
+<p>回到客户端，hexo的_config.yml配置一下</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">&#x27;git&#x27;</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">root@ip192.168.11.11:/root/git/blog.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
+
+<p>然后部署，也就是把网站push到服务器上</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+
+<p>在服务器上的放网页的地方clone仓库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">clone</span> root@localhost:/root/git/blog.git</span><br></pre></td></tr></table></figure>
+
+<p>设置一下nginx</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">    server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    listen       [::]:80;</span><br><span class="line">    server_name  _;</span><br><span class="line">    root         /usr/share/nginx/blog;# 更改一下这里</span><br><span class="line"></span><br><span class="line">    # Load configuration files for the default server block.</span><br><span class="line">    include /etc/nginx/default.d/*.conf;</span><br><span class="line"></span><br><span class="line">    error_page 404 /404.html;</span><br><span class="line">    location = /404.html &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    error_page 500 502 503 504 /50x.html;</span><br><span class="line">    location = /50x.html &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>检查一下设置’nginx -t’</p>
+<p>然后重启nginx ‘service nginx restart’</p>
+<p>值得注意的是，hexo在这里提交的分支是origin&#x2F;master而不是master。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[oneday@loaclhost <span class="built_in">test</span>]$ git checkout master</span><br><span class="line">已经位于 <span class="string">&#x27;master&#x27;</span></span><br><span class="line">您的分支和 <span class="string">&#x27;origin/master&#x27;</span> 出现了偏离，</span><br><span class="line">并且分别有 2 和 2 处不同的提交。</span><br><span class="line">  （使用 <span class="string">&quot;git pull&quot;</span> 来合并远程分支）</span><br></pre></td></tr></table></figure>
+
+<p>接下来本应该设置定时任务让&#x2F;usr&#x2F;share&#x2F;nginx&#x2F;blog这个仓库定时拉取blog.git然而我懒，就随缘手动拉取吧。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://mojidei.github.io/2023/11/12/hexo-deploy/" data-id="cm95cletg000ww0uoh8g4crs8" data-title="部署hexo!" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-vue安装" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/06/19/vue%E5%AE%89%E8%A3%85/" class="article-date">
+  <time class="dt-published" datetime="2023-06-19T06:36:16.000Z" itemprop="datePublished">2023-06-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/06/19/vue%E5%AE%89%E8%A3%85/">vue安装</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>这个是旧的博文重新放上来，时间只能精确到日期。。重新收录于24年4月26日</p>
+<hr>
+<h2 id="第一天我们都学到了什么？"><a href="#第一天我们都学到了什么？" class="headerlink" title="第一天我们都学到了什么？"></a>第一天我们都学到了什么？</h2><ol>
+<li>安装node（基于Chrome V8引擎的JavaScript运行环境）</li>
+<li>安装vue cli（Vue.js开发的标准工具）</li>
+<li>两种创建vue项目的方式：命令行方式和图形界面方式</li>
+<li>vue的文件结构</li>
+<li>安装Element（网站快速成型工具，一套为开发者、设计师和产品经理准备的基于 Vue 2.0 的桌面端组件库）</li>
+</ol>
+<h2 id="安装node"><a href="#安装node" class="headerlink" title="安装node"></a>安装node</h2><p><a target="_blank" rel="noopener" href="https://nodejs.cn/download/">node下载链接</a>，下载长期支持版本安装包并安装。</p>
+<p>验证安装是否成功：win+r呼出运行，输入cmd回车呼出cmd命令行窗口，输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node -v</span><br></pre></td></tr></table></figure>
+
+<p>输出node版本号</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm -v</span><br></pre></td></tr></table></figure>
+
+<p>输出npm版本号</p>
+<h2 id="安装vue-cli"><a href="#安装vue-cli" class="headerlink" title="安装vue cli"></a>安装vue cli</h2><p>以管理员运行cmd：win+r呼出运行，输入cmd，ctrl+shift+enter呼出cmd命令行窗口，输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g @vue/cli</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h2><p>为了避免混乱，我们在D盘新建了名为vueproject的文件夹作为所有vue项目的上级文件夹。我们以日期命名项目名，并且只用数字命名。</p>
+<h2 id="以命令行方式创建项目："><a href="#以命令行方式创建项目：" class="headerlink" title="以命令行方式创建项目："></a>以命令行方式创建项目：</h2><p>用文件资源管理器打开vueproject文件夹，在地址栏输入cmd，回车，呼出工作目录为D:\vueproject的cmd命令行窗口。<br>创建项目命令：<br>vue create 0619<br>0619是项目名<br>之后：</p>
+<ol>
+<li><p>选择manuslly手动配置（上下键切换，enter确定）</p>
+</li>
+<li><p>仅仅选中babel、router、vuex、css pre-processors（空格键选中&#x2F;取消选中）</p>
+</li>
+<li><p>选2.x（这是vue版本）</p>
+</li>
+<li><p>一直回车</p>
+</li>
+<li><p>进入项目路径。命令：</p>
+<p>cd 0619</p>
+</li>
+<li><p>运行项目。命令：</p>
+<p>npm run serve</p>
+</li>
+<li><p>访问本地页面：在主流浏览器地址栏输入</p>
+<p>localhost:8080</p>
+</li>
+</ol>
+<p>回车</p>
+<p>要停止运行，可使用ctrl+c</p>
+<h2 id="以图形界面方式创建项目"><a href="#以图形界面方式创建项目" class="headerlink" title="以图形界面方式创建项目"></a>以图形界面方式创建项目</h2><p>cmd里输入命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue ui</span><br></pre></td></tr></table></figure>
+
+<p>点击上方的创建，将D:\vueproject粘贴在项目创建的地址栏，回车，点击下方的创建。<br>在选择版本的界面中，有个选项选的是scss。</p>
+<h2 id="使用HdmlBuiderX内置终端"><a href="#使用HdmlBuiderX内置终端" class="headerlink" title="使用HdmlBuiderX内置终端"></a>使用HdmlBuiderX内置终端</h2><p>在HdmlBuiderX里面的文件管理器里项目文件夹上右键 使用命令行打开所在目录</p>
+<h2 id="element安装"><a href="#element安装" class="headerlink" title="element安装"></a>element安装</h2><p>工作目录为项目路径（如D:\vueproject\06191753），命令：<br>npm i element-ui -S<br>pakage.json中dependencies中有”element-ui”: “^2.15.13”就算成功<br>在src文件夹中的main.js中加上</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import ElementUI from &#x27;element-ui&#x27;;</span><br><span class="line">import &#x27;element-ui/lib/theme-chalk/index.css&#x27;;</span><br><span class="line">Vue.use(ElementUI);</span><br></pre></td></tr></table></figure>
+
+<p>在src文件夹中的App.vue中div里加上</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;el-row&gt;</span><br><span class="line">  &lt;el-button&gt;默认按钮&lt;/el-button&gt;</span><br><span class="line">  &lt;el-button type=&quot;primary&quot;&gt;主要按钮&lt;/el-button&gt;</span><br><span class="line">  &lt;el-button type=&quot;success&quot;&gt;成功按钮&lt;/el-button&gt;</span><br><span class="line">  &lt;el-button type=&quot;info&quot;&gt;信息按钮&lt;/el-button&gt;</span><br><span class="line">  &lt;el-button type=&quot;warning&quot;&gt;警告按钮&lt;/el-button&gt;</span><br><span class="line">  &lt;el-button type=&quot;danger&quot;&gt;危险按钮&lt;/el-button&gt;</span><br><span class="line">&lt;/el-row&gt;</span><br></pre></td></tr></table></figure>
+
+<p>然后运行项目。</p>
+<p>参考：<br><a target="_blank" rel="noopener" href="https://cli.vuejs.org/zh/guide/">vue cli指南</a><br><a target="_blank" rel="noopener" href="https://element.eleme.cn/#/zh-CN/component/installation">element指南</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://mojidei.github.io/2023/06/19/vue%E5%AE%89%E8%A3%85/" data-id="cm95cletj0019w0uoaiz761ma" data-title="vue安装" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/" rel="tag">vue</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Syncplay简易使用说明" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/06/18/Syncplay%E7%AE%80%E6%98%93%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/" class="article-date">
+  <time class="dt-published" datetime="2023-06-18T06:30:14.000Z" itemprop="datePublished">2023-06-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/06/18/Syncplay%E7%AE%80%E6%98%93%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/">Syncplay简易使用说明</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>这个是旧的博文重新放上来，时间只能精确到日期。。重新收录于24年4月26日</p>
+<hr>
+<p><a target="_blank" rel="noopener" href="https://syncplay.pl/">syncplay</a>是一个同步播放软件。  </p>
+<p><a target="_blank" rel="noopener" href="https://www.videolan.org/vlc/">vlc</a>是一款播放器。（除了VLC 3，syncplay还支持mpv、mpv.net、MPC-BE、MPC-HC和IINA）  </p>
+<p>你可以在群文件里下载：</p>
+<p><img src="/../images/2024-04-26-14-31-49-image.png"></p>
+<p>并安装。<br>安装好之后打开syncplay</p>
+<p><img src="/../images/2024-04-26-14-32-38-image.png"></p>
+<p>服务器地址：选择和你的同伴一样的服务器地址。  </p>
+<p>用户名：你的昵称。  </p>
+<p>默认房间：填和你的同伴一样的。  </p>
+<p>播放器路径：还记得你刚才安装的播放器吗？刚才那个的默认路径是</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">c:\program files (x86)\videolan\vlc\vlc.exe</span><br></pre></td></tr></table></figure>
+
+<p>左下角勾选高级选项，选择要一起看的视频文件</p>
+<p><img src="/../images/2024-04-26-14-34-02-image.png"></p>
+<p>选好以后就可以运行了~  </p>
+<p><a target="_blank" rel="noopener" href="https://search.bilibili.com/all?keyword=syncplay">还是不会？点我！</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://mojidei.github.io/2023/06/18/Syncplay%E7%AE%80%E6%98%93%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/" data-id="cm95cletd000dw0uoayvi1je2" data-title="Syncplay简易使用说明" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9D%82%E9%A1%B9/" rel="tag">杂项</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-博客里该写什么" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/06/17/%E5%8D%9A%E5%AE%A2%E9%87%8C%E8%AF%A5%E5%86%99%E4%BB%80%E4%B9%88/" class="article-date">
+  <time class="dt-published" datetime="2023-06-17T06:26:55.000Z" itemprop="datePublished">2023-06-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/06/17/%E5%8D%9A%E5%AE%A2%E9%87%8C%E8%AF%A5%E5%86%99%E4%BB%80%E4%B9%88/">博客里该写什么</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>这个是旧的博文重新放上来，时间只能精确到日期。。重新收录于24年4月26日</p>
+<h2 id="应该是沉淀"><a href="#应该是沉淀" class="headerlink" title="应该是沉淀"></a>应该是沉淀</h2><p>互联网有一个特点，就是共享。上面的绝大部分内容都不是只给某个人单独看的。所以，博客的内容更多的是给别人看的，让别人能够看懂，否则只会增加垃圾信息，让使用搜索引擎的人感到不适。 </p>
+<p>正因为如此，我不会把复习类的笔记发上来。因为笔记本来就不是写给别人看的，它是写给自己复习用的。这种东西别人很难看懂。  </p>
+<p>我以为，博客上只应有一种东西，那就是沉淀。或许是理解了某个新概念，学到了新东西，写一篇文章来介绍它。或者是做了某件事之后有什么新的感想，产生了新的东西，再或者遇到了棘手的问题，把解决问题的过程写下来。这些都可以称为沉淀。沉淀往往需要对事物有着相对长时间的接触才有。作为沉淀，往往是总结性的。深挖一个问题、将多个问题构成一个系列成为一个类型的问题……</p>
+<p>参考：<br><a target="_blank" rel="noopener" href="https://kb.cnblogs.com/page/194899/">如何写一篇好的技术博客</a> </p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904162682126343">我是如何写好一篇技术博客的</a>  </p>
+<p><a target="_blank" rel="noopener" href="https://csdiy.wiki/%E5%BF%85%E5%AD%A6%E5%B7%A5%E5%85%B7/workflow/">日常学习工作流</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://mojidei.github.io/2023/06/17/%E5%8D%9A%E5%AE%A2%E9%87%8C%E8%AF%A5%E5%86%99%E4%BB%80%E4%B9%88/" data-id="cm95cletl001nw0uoe52a3wte" data-title="博客里该写什么" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/3/">&laquo; zurück</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/">weiter &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/" rel="tag">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blade/" rel="tag">blade</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debian/" rel="tag">debian</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flask/" rel="tag">flask</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gunicorn/" rel="tag">gunicorn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/" rel="tag">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/" rel="tag">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/" rel="tag">ssh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/terminal/" rel="tag">terminal</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vbs/" rel="tag">vbs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B8%B8%E8%AF%86/" rel="tag">常识</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%82%E8%B0%88/" rel="tag">杂谈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%82%E9%A1%B9/" rel="tag">杂项</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/android/" style="font-size: 10px;">android</a> <a href="/tags/blade/" style="font-size: 10px;">blade</a> <a href="/tags/debian/" style="font-size: 12.5px;">debian</a> <a href="/tags/docker/" style="font-size: 15px;">docker</a> <a href="/tags/flask/" style="font-size: 17.5px;">flask</a> <a href="/tags/gunicorn/" style="font-size: 10px;">gunicorn</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/terminal/" style="font-size: 10px;">terminal</a> <a href="/tags/vbs/" style="font-size: 10px;">vbs</a> <a href="/tags/vue/" style="font-size: 12.5px;">vue</a> <a href="/tags/%E5%B8%B8%E8%AF%86/" style="font-size: 10px;">常识</a> <a href="/tags/%E6%9D%82%E8%B0%88/" style="font-size: 20px;">杂谈</a> <a href="/tags/%E6%9D%82%E9%A1%B9/" style="font-size: 10px;">杂项</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">April 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">September 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">June 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/04/06/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2024/09/20/uni-app%E5%88%9D%E6%8E%A2/">uni-app初探</a>
+          </li>
+        
+          <li>
+            <a href="/2024/09/20/flask%E4%B8%8Ejwt/">flask与jwt</a>
+          </li>
+        
+          <li>
+            <a href="/2024/09/20/flask%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93/">flask操作数据库</a>
+          </li>
+        
+          <li>
+            <a href="/2024/09/19/SpringBoot%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE/">SpringBoot创建项目</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 mojidei<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
